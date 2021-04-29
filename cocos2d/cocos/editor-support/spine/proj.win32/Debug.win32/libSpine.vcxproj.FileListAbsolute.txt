@@ -1,0 +1,2 @@
+D:\github\Game_middle\proj.win32\Debug.win32\libSpine.pdb
+D:\github\Game_middle\cocos2d\cocos\editor-support\spine\proj.win32\Debug.win32\libSpine.pdb

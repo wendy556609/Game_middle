@@ -1,0 +1,2 @@
+D:\github\Game_middle\proj.win32\Debug.win32\mygit.exe
+D:\github\Game_middle\proj.win32\Debug.win32\mygit.pdb
