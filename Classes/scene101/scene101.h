@@ -26,29 +26,27 @@
 #define __SCENE_101_H__
 
 #include "cocos2d.h"
-#include "common/CRunner.h"
-#include "common/CMiddleObject.h"
-#include "common/C3SButton.h"
-#include "common/CEnemyObj.h"
+//#include "common/CRunner.h"
+//#include "common/CMiddleObject.h"
+//#include "common/C3SButton.h"
+//#include "common/CEnemy.h"
 class Scene101 : public cocos2d::Scene
 {
 private:
-    cocos2d::Sprite* btn_cuber; // 場景中會放置的按鈕
-    cocos2d::Sprite* btn_replay;
-    cocos2d::Sprite* btn_return;
-    cocos2d::Rect    cuber_rect;
-    cocos2d::Rect    replay_rect;
-    cocos2d::Rect    return_rect; //包含住按鈕的長方形
+    //cocos2d::Sprite* btn_cuber; // 場景中會放置的按鈕
+    //cocos2d::Sprite* btn_replay;
+    //cocos2d::Sprite* btn_return;
+    //cocos2d::Rect    cuber_rect;
+    //cocos2d::Rect    replay_rect;
+    //cocos2d::Rect    return_rect; //包含住按鈕的長方形
 
-    CRunner* _runner;
-    CMiddleObject* _midObj;
-    C3SButton* _c3sButton;
-    CTriEnemy* _trienemy;
-    CFEnemy*  _fire;
-    CBEnemy* _bean;
-    CEnemyNode* _enemy;
-    
-    cocos2d::Sprite* background_1;
+    //CRunner* _runner;
+    //CMiddleObject* _midObj;
+    //C3SButton* _c3sButton;
+    //CTriEnemy* _trienemy;
+    //CFEnemy*  _fire;
+    //CBEnemy* _bean;
+    //CEnemy* _enemy;
     /*cocos2d::Sprite* bean01;
     cocos2d::Rect    bean01_rect;*/
 

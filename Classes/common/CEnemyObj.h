@@ -14,13 +14,19 @@ public:
 	CEnemyObj() {};
 	~CEnemyObj() {};
 	virtual void initState()=0;
-	virtual void update(float dt)=0;
+	virtual void update(float dt, Point move)=0;
+	void setEnable(bool enable) {
+		isEnable = enable;
+	}
 
 	cocostudio::timeline::ActionTimeline* _showAction;
 	cocos2d::Point _initPos;
 	cocos2d::Vec2 _cPos;
+	float _posY;
 	float _moveSpeed;
 	int blood;
+	bool _startAnim;
+	bool isEnable;
 };
 
 class CTriEnemy : public CEnemyObj {
@@ -37,7 +43,7 @@ public:
 	void initState();
 	void changeColor(int type);
 	void changeFace(State state);
-	void update(float dt);
+	void update(float dt, Point move);
 
 	State _state;
 };
@@ -50,12 +56,10 @@ public:
 	~CFEnemy();
 	void init(const cocos2d::Point position, cocos2d::Node& parent, const std::string& csbname, const std::string& layername, int zOrder = 1);
 	void initState();
-	void update(float dt);
+	void update(float dt, Point move);
 	void setPosition(const cocos2d::Point pos);
 
-	
-	bool _startAnim;
-
+	bool repeatAnim;
 };
 
 class CBEnemy : public CEnemyObj {
@@ -66,43 +70,15 @@ public:
 	~CBEnemy();
 	void init(const cocos2d::Point position, cocos2d::Node& parent, const std::string& csbname, const std::string& layername, int zOrder = 1);
 	void initState();
-	void update(float dt);
+	void update(float dt,Point move);
 	void setPosition(const cocos2d::Point pos);
-	void Jump(float dt);
-
-	bool _startAnim;
+	void Jump(float dt, Point move);
 
 	bool _isJump;
 	bool _hightPoint;
+	bool drop;
 
 	float _jumptime;
-	float _airTime;
+	float _waitTime;
 };
 
-class CEnemyNode {
-private:
-public:
-	CEnemyNode();
-	~CEnemyNode();
-
-	CEnemyObj* _enemy[3];
-
-	void init(cocos2d::Node& parent, cocos2d::Point playerPos);
-	void resetEnemyState(int type);
-	void resetEnemy();
-	void update(float dt);
-	void pointUpdate(float dt);
-	void setSpeed(float speed);
-	void setPosition(Point pos);
-	bool checkCollider(CGameObject& object);
-	int getHurt();
-
-	CCollider* getCollider();
-
-	cocos2d::Point _initPoint;
-	cocos2d::Point _rebornPoint;
-	cocos2d::Node* _enemyNode;
-
-	int enemyOn;
-	float _moveSpeed;
-};

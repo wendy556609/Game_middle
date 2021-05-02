@@ -1,8 +1,10 @@
 #include "CEnemyObj.h"
 
 CTriEnemy::CTriEnemy() {
+	_startAnim = false;
 	_showAction = nullptr;
 	blood = 1;
+	isEnable = false;
 }
 CTriEnemy::~CTriEnemy() {
 
@@ -26,14 +28,15 @@ void CTriEnemy::init(const cocos2d::Point position, cocos2d::Node& parent, const
 }
 
 void CTriEnemy::initState() {
+	setPosition(_initPos);
+
 	int face = rand() % 2;
 	int color = rand() % 3;
 
 	changeFace(State(face));
 	changeColor(color);
-
-	_showAction->gotoFrameAndPlay(0, 35, false);
-	_showAction->setTimeSpeed(1.0f);
+	_startAnim = false;
+	_showAction->gotoFrameAndPause(0);
 }
 
 void CTriEnemy::changeColor(int type) {
@@ -60,7 +63,15 @@ void CTriEnemy::changeFace(State state) {
 	}
 }
 
-void CTriEnemy::update(float dt) {
+void CTriEnemy::update(float dt, Point move) {
+	if (isEnable) {
+		setPosition(Vec2(move.x, getPosition().y));
+		if (getPosition().x >= 100 && !_startAnim) {
+			_showAction->gotoFrameAndPlay(0, 35, false);
+			_showAction->setTimeSpeed(1.0f);
+			_startAnim = true;
+		}
+	}
 }
 
 CFEnemy::CFEnemy() {
@@ -98,15 +109,24 @@ void CFEnemy::setPosition(const cocos2d::Point pos) {
 void CFEnemy::initState() {
 	setPosition(_initPos);
 
-	_showAction->gotoFrameAndPlay(0, 30, false);
-	_showAction->setTimeSpeed(1.0f);
+	_showAction->gotoFrameAndPause(0);
 	_startAnim = false;
+	repeatAnim = false;
 }
 
-void CFEnemy::update(float dt) {
-	if (_showAction->getCurrentFrame() == 30&& !_startAnim) {
-		_showAction->gotoFrameAndPlay(30, 60, true);
-		_startAnim = true;
+void CFEnemy::update(float dt, Point move) {
+	if (isEnable) {
+		setPosition(Vec2(move.x, getPosition().y));
+		if (getPosition().x >= 100 && !_startAnim) {
+			_showAction->gotoFrameAndPlay(0, 30, false);
+			_showAction->setTimeSpeed(1.0f);
+			_startAnim = true;
+			repeatAnim = true;
+		}
+		if (_showAction->getCurrentFrame() == 30 && repeatAnim) {
+			_showAction->gotoFrameAndPlay(30, 60, true);
+			repeatAnim = false;
+		}
 	}
 }
 
@@ -116,8 +136,9 @@ CBEnemy::CBEnemy() {
 
 	_isJump = false;
 	_hightPoint = false;
+	drop = false;
 	_jumptime = 0;
-	_airTime = 0;
+	_waitTime = 0;
 	blood = 3;
 }
 
@@ -144,11 +165,13 @@ void CBEnemy::init(const cocos2d::Point position, cocos2d::Node& parent, const s
 void CBEnemy::initState() {
 	setPosition(_initPos);
 
-	_showAction->gotoFrameAndPlay(0, 18, false);
+	//_showAction->gotoFrameAndPlay(0, 18, false);
+	_showAction->gotoFrameAndPause(0);
 	_isJump = false;
 	_hightPoint = false;
+	drop = false;
 	_jumptime = 0;
-	_airTime = 0;
+	_waitTime = 0;
 	//_showAction->setTimeSpeed(1.0f);
 	//_startAnim = false;
 }
@@ -159,115 +182,62 @@ void CBEnemy::setPosition(const cocos2d::Point pos) {
 	setBoxCollider(pos + _cPos, _size);
 }
 
-void CBEnemy::update(float dt) {
-	Jump(dt);
+void CBEnemy::update(float dt, Point move) {
+	if (isEnable) {
+		Jump(dt, move);
+	}
 }
 
-void CBEnemy::Jump(float dt) {
-		_jumptime += dt;
-		float ph = sinf(_jumptime * M_PI / 1.0f);
-		Point pos = Vec2(getPosition().x, _initPos.y + ph * 250);
-		setPosition(pos);
-		if (ph ==1) {
-			_showAction->gotoFrameAndPlay(18, 30, false);
+void CBEnemy::Jump(float dt, Point move) {
+	Point pos;
+	if (_isJump) {
+		if (!_hightPoint) {
+			_jumptime += dt;
+			float ph = sinf(_jumptime * M_PI / 1.0f);
+			pos = Vec2(move.x, _initPos.y + ph * 300);
+			if (_jumptime >= 0.5f&& !drop) {
+				pos = Vec2(move.x, _initPos.y + 300);
+				_hightPoint = true;
+			}
+			setPosition(pos);
+		}
+		else {
+			_waitTime += dt;
+			pos = Vec2(move.x, _initPos.y + 300);
+			if (_waitTime > 0.5f) {
+				_waitTime = 0;
+				_hightPoint = false;
+				drop = true;
+				_showAction->gotoFrameAndPlay(18, 30, false);
+				_showAction->setTimeSpeed(1.0f);
+			}
+			setPosition(pos);
 		}
 		if (_jumptime > 1.0f) {
 			_jumptime = 0;
-			setPosition(Vec2(getPosition().x, _initPos.y));
-			_showAction->setTimeSpeed(1.0f);
-			_showAction->gotoFrameAndPlay(0, 18, false);
+			pos = Vec2(move.x, _initPos.y);
+			setPosition(pos);
+			//setPosition(Vec2(move.x, _initPos.y));
+			_waitTime = 0;
+			_hightPoint = false;
+			_isJump = false;
 		}
-}
-
-CEnemyNode::CEnemyNode() {
-	_enemy[0] = _enemy[1] = _enemy[2] = nullptr;
-	_initPoint = Vec2(200, 124);
-	enemyOn = 0;
-	_enemyNode = nullptr;
-	_moveSpeed = 150;
-}
-
-CEnemyNode::~CEnemyNode() {
-	CC_SAFE_DELETE(_enemy[0]);
-	CC_SAFE_DELETE(_enemy[1]);
-	CC_SAFE_DELETE(_enemy[2]);
-}
-
-void CEnemyNode::init(cocos2d::Node& parent, cocos2d::Point playerPos) {
-	Point position;
-	position = _initPoint;
-	_enemyNode = new (std::nothrow)Node();
-	position.y = playerPos.y;
-	//tri
-	_enemy[0] = new (std::nothrow)CTriEnemy();
-	_enemy[0]->init(Vec2(0,0), *_enemyNode, "triangle_node.csb", "triblock_1", 3);
-	_enemy[0]->setVisible(false);
-	//bean
-	_enemy[2] = new (std::nothrow)CBEnemy();
-	_enemy[2]->init(Vec2(0, 0), *_enemyNode, "bean_jump.csb", "collider", 3);
-	_enemy[2]->setVisible(false);
-	//fire
-	_enemy[1] = new (std::nothrow)CFEnemy();
-	_enemy[1]->init(Vec2(0, 165-playerPos.y), *_enemyNode, "fire.csb", "collider", 3);
-	_enemy[1]->setVisible(false);
-
-	parent.addChild(_enemyNode, 3);
-	_enemyNode->setPosition(position);
-	resetEnemy();
-}
-
-void CEnemyNode::resetEnemyState(int type) {
-	_enemy[enemyOn]->setVisible(false);
-
-	enemyOn = type;
-	_enemy[enemyOn]->initState();
-	_enemy[enemyOn]->setVisible(true);
-}
-
-void CEnemyNode::resetEnemy() {
-	int enemyType = rand() % 3;
-	resetEnemyState(enemyType);
-	int range = 50-(rand() % 100);
-	_rebornPoint.x = _initPoint.x + range;
-}
-
-void CEnemyNode::update(float dt) {
-	pointUpdate(dt);
-}
-
-void CEnemyNode::pointUpdate(float dt) {
-	Point pt = _enemyNode->getPosition();
-	pt.x += dt * _moveSpeed;
-	_enemy[enemyOn]->update(dt);
-	if (pt.x >= 1280) {
-		pt.x = _rebornPoint.x;
-		resetEnemy();
-	}
-	_enemyNode->setPosition(pt);
-}
-
-void CEnemyNode::setSpeed(float speed) {
-	_moveSpeed = 150 * speed;
-}
-
-void CEnemyNode::setPosition(Point pos) {
-	_enemyNode->setPosition(pos);
-}
-
-bool CEnemyNode::checkCollider(CGameObject& object) {
-	if (_enemy[enemyOn]->OnColliderCheck(*object.getCollider())) {
-		log("collider");
-		return true;
 	}
 	else {
-		return false;
+		_waitTime += dt;
+		pos = Vec2(move.x, _initPos.y);
+		_showAction->gotoFrameAndPause(0);
+		if (_waitTime > 0.5f) {
+			_waitTime = 0;
+			_isJump = true;
+			drop = false;
+			_showAction->gotoFrameAndPlay(0, 18, false);
+			_showAction->setTimeSpeed(1.0f);
+		}
+		setPosition(pos);
 	}
+	
+	
+	
 }
 
-CCollider* CEnemyNode::getCollider() {
-	return _enemy[enemyOn]->getCollider();
-}
-
-int CEnemyNode::getHurt() {
-	return _enemy[enemyOn]->blood;
-}

@@ -30,3 +30,8 @@ void CMiddleObject::setSpeed(float speed) {
 	_road0->setSpeed(speed);
 	_road1->setSpeed(speed);
 }
+
+void CMiddleObject::initState() {
+	_road0->initState();
+	_road1->initState();
+}

@@ -4,17 +4,47 @@ USING_NS_CC;
 
 CRunner::CRunner()
 {
+	_blood = 10;
 	_isJump = false;
 	_shadow = nullptr;
 	_runAction = nullptr;
 	_hightPoint = false;
 	_jumptime = 0;
 	_isHurt = false;
+	_airTime = 0;
+	drop = false;
+	isChange = false;
+	passing = false;
+	_faceTime = 0;
+	_isStart = false;
 }
 
 CRunner::~CRunner()
 {
 	CC_SAFE_DELETE(_shadow);
+}
+
+void CRunner::initState() {
+	_blood = 10;
+
+	setPosition(_initPos);
+
+	_objectNode->setColor(Color3B::WHITE);
+	_runAction->gotoFrameAndPause(0);
+	_runAction->setTimeSpeed(1.0f);
+	changeFace(State::normal);
+	
+	_isJump = false;
+	_hightPoint = false;
+	_isHurt = false;
+	drop = false;
+	isChange = false;
+	passing = false;
+	_isStart = false;
+
+	_jumptime = 0;
+	_airTime = 0;
+	_faceTime = 0;
 }
 
 void CRunner::init(const cocos2d::Point position, cocos2d::Node& parent, const std::string& csbname, const std::string& layername, int zOrder) {
@@ -34,7 +64,7 @@ void CRunner::init(const cocos2d::Point position, cocos2d::Node& parent, const s
 	parent.addChild(_objectNode, zOrder);
 
 	_runAction= CSLoader::createTimeline(csbname);
-	_runAction->gotoFrameAndPlay(0, 24, true);
+	_runAction->gotoFrameAndPause(0);
 	_runAction->setTimeSpeed(1.0f);
 	_objectNode->runAction(_runAction);
 	_state = State::normal;
@@ -47,7 +77,8 @@ void CRunner::setPosition(const cocos2d::Point pos) {
 	setBoxCollider(pos+_cPos, _size);
 }
 
-void CRunner::changeFace() {
+void CRunner::changeFace(State face) {
+	setState(face);
 	if (_state == State::normal) {
 		_objectNode->getChildByName("neutal_face")->setVisible(true);
 		_objectNode->getChildByName("happy_face")->setVisible(false);
@@ -65,11 +96,25 @@ void CRunner::changeFace() {
 	}
 }
 void CRunner::jumpAction(float dt) {
-	
+	Point pos;
 	if (_isJump) {
-		_jumptime += dt;
-		float ph = sinf(_jumptime * M_PI/1.0f);
-		Point pos = Vec2(getPosition().x, _initPos.y + ph*250 );
+		if (!_hightPoint) {
+			_jumptime += dt;
+			float ph = sinf(_jumptime * M_PI / 1.0f);
+			pos = Vec2(getPosition().x, _initPos.y + ph * 300);
+			if (_jumptime >= 0.5f && !drop) {
+				_hightPoint = true;
+				drop = true;
+			}
+		}
+		else {
+			_airTime += dt;
+			pos = Vec2(getPosition().x, _initPos.y + 300);
+			if (_airTime > 0.5f) {
+				_airTime = 0;
+				_hightPoint = false;
+			}
+		}
 		setPosition(pos);
 		_runAction->setTimeSpeed(0.5f);
 		if (_jumptime > 1.0f) {
@@ -77,29 +122,83 @@ void CRunner::jumpAction(float dt) {
 			setPosition(Vec2(getPosition().x, _initPos.y));
 			_isJump = false;
 			_runAction->setTimeSpeed(1.0f);
+			_airTime = 0;
+			_hightPoint = false;
+			drop = false;
+			isChange = true;
 		}
 	}
 }
 
 void CRunner::update(float dt) {
+	if (!_isStart) {
+		_isStart = true;
+		_runAction->gotoFrameAndPlay(0, 24, true);
+	}
 	jumpAction(dt);
+	hurtAct(dt);
 }
 
 void CRunner::setState(State state) {
 	_state = state;
 }
 
-
-CShadow::CShadow()
-{
+void CRunner::hurtAct(float dt) {
+	if (_isHurt) {
+		if (_faceTime == 0) {
+			CScoring::getInstance()->setMoveSpeed(1.5f);
+			CScoring::getInstance()->setChange(true);
+		}
+		isChange = true;
+		_faceTime += dt;
+		changeFace(State::sad);
+		_objectNode->setColor(Color3B(82, 131, 151));
+		_runAction->setTimeSpeed(0.75f);
+		passing = false;
+		if (_faceTime >= 1.5f) {
+			_faceTime = 0;
+			isChange = false;
+			_isHurt = false;
+			changeFace(State::normal);
+			_objectNode->setColor(Color3B(255, 255, 255));
+			CScoring::getInstance()->setMoveSpeed(2.0f);
+			CScoring::getInstance()->setChange(false);
+			_runAction->setTimeSpeed(1.0f);
+		}
+	}
+	else if (passing) {
+		if (isChange) {
+			if (_faceTime == 0) {
+				CScoring::getInstance()->setScore(1);
+				CScoring::getInstance()->setMoveSpeed(3.0f);
+				CScoring::getInstance()->setChange(true);
+			}
+			_faceTime += dt;
+			changeFace(State::happy);
+			_objectNode->setColor(Color3B(247, 151, 149));
+			_runAction->setTimeSpeed(1.25f);
+			if (_faceTime >= 1.0f) {
+				_faceTime = 0;
+				isChange = false;
+				passing = false;
+				changeFace(State::normal);
+				_objectNode->setColor(Color3B(255, 255, 255));
+				CScoring::getInstance()->setMoveSpeed(2.0f);
+				_runAction->setTimeSpeed(1.0f);
+				CScoring::getInstance()->setChange(false);
+			}
+		}
+	}
+	else {
+		isChange = false;
+		//CScoring::getInstance()->setMoveSpeed(2.0f);
+	}
 }
 
-CShadow::~CShadow()
-{
-}
-
-void CShadow::setTarget(cocos2d::Point target, cocos2d::Vec2 relativePos) {
-	_target = target;
-	_relativePos = relativePos;
-	setPosition(target + _relativePos);
+void CRunner::getHurt(int blood) {
+	_blood -= blood;
+	if (_blood <= 0) {
+		_blood = 0;
+	}
+	CCLOG("%d", _blood);
 }

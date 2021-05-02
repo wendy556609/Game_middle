@@ -36,24 +36,24 @@ Scene* Scene101::createScene()
 }
 
 Scene101::Scene101() {
-    _fire = nullptr;
+   /* _fire = nullptr;
     _trienemy = nullptr;
     _c3sButton = nullptr;
     _midObj = nullptr;
-    background_1 = nullptr;
     _runner = nullptr;
-    _bBean01 = false;
+    
     _bean = nullptr;
-    _enemy = nullptr;
+    _enemy = nullptr;*/
+    _bBean01 = false;
 }
 Scene101::~Scene101() {
-    CC_SAFE_DELETE(_runner);
+    /*CC_SAFE_DELETE(_runner);
     CC_SAFE_DELETE(_midObj);
     CC_SAFE_DELETE(_c3sButton);
     CC_SAFE_DELETE(_trienemy);
     CC_SAFE_DELETE(_fire);
     CC_SAFE_DELETE(_bean);
-    CC_SAFE_DELETE(_enemy);
+    CC_SAFE_DELETE(_enemy);*/
     this->removeAllChildren();
     SpriteFrameCache::getInstance()->removeSpriteFramesFromFile("scene101.plist");
     SpriteFrameCache::getInstance()->removeSpriteFramesFromFile("scene101bg.plist");
@@ -80,19 +80,19 @@ bool Scene101::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    auto rootNode = CSLoader::createNode("mainscene.csb");
-    this->addChild(rootNode); // 加入目前的 scene 中
+    //auto rootNode = CSLoader::createNode("mainscene.csb");
+    //this->addChild(rootNode); // 加入目前的 scene 中
 
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("scene101/scene101.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("scene101/scene101bg.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("scene101/gamescene.plist");
+    //SpriteFrameCache::getInstance()->addSpriteFramesWithFile("scene101/scene101.plist");
+    //SpriteFrameCache::getInstance()->addSpriteFramesWithFile("scene101/scene101bg.plist");
+    //SpriteFrameCache::getInstance()->addSpriteFramesWithFile("scene101/gamescene.plist");
 
     /////////////////////////////
     // 2. 增加場景中的物件
     // 2. add a menu item with "X" image, which is clicked to quit the program you may modify it.
 
     // 自行增加 sprite 將 bean01.png 到螢幕正中間
-    auto loctag = dynamic_cast<cocos2d::Node*>(rootNode->getChildByName("_runner"));
+    /*auto loctag = dynamic_cast<cocos2d::Node*>(rootNode->getChildByName("_runner"));
     loctag->setVisible(false);
     auto position = loctag->getPosition();
     _runner = new (std::nothrow) CRunner();
@@ -108,7 +108,7 @@ bool Scene101::init()
     loctag->setVisible(false);
     position = loctag->getPosition();
     _c3sButton = new (std::nothrow)C3SButton();
-    _c3sButton->init(_c3sButton->BtnType::jumpBtn, position, *this, "jumpnormal", "jumpon");
+    _c3sButton->init(_c3sButton->BtnType::jumpBtn, position, *this, "jumpnormal", "jumpon");*/
 
     /*position = Vec2(200, _runner->getPosition().y);
     _enemy = new (std::nothrow)CTriEnemy();
@@ -122,10 +122,10 @@ bool Scene101::init()
     _bean = new (std::nothrow)CBEnemy();
     _bean->init(position, *this, "bean_jump.csb", "collider", 3);*/
 
-    _enemy = new (std::nothrow)CEnemyNode();
+    /*_enemy = new (std::nothrow)CEnemy();
     _enemy->init(*this, _runner->getPosition());
     
-    _midObj->setSpeed(2);
+    _midObj->setSpeed(2);*/
 
     //bean01 = Sprite::create("scene101/bean01.png");  // 使用 create 函式,給予檔名即可
     //bean01->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y)); // 位置通常放置在螢幕正中間
@@ -181,13 +181,16 @@ bool Scene101::init()
 
 void Scene101::update(float dt)
 {
-    _midObj->update(dt);
+   /* _midObj->update(dt);
     _runner->update(dt);
     _c3sButton->setEnable(_c3sButton->BtnType::jumpBtn, !_runner->_isJump);
     _enemy->update(dt);
     if (_runner->_isJump) {
         _enemy->setSpeed(2.25f);
         _midObj->setSpeed(2.25f);
+        if (!_runner->passing) {
+            _runner->passing = _enemy->passPlayer(*_runner);
+        }
     }
     else {
         _enemy->setSpeed(2);
@@ -197,14 +200,10 @@ void Scene101::update(float dt)
     if (_enemy->checkCollider(*_runner)) {
         if (!_runner->_isHurt) {
             _runner->_isHurt = true;
-            if (_runner->_isHurt) {
-                log("hurt");
-            }
         }
     }
     else {
-        _runner->_isHurt = false;
-    }
+    }*/
     //CCLOG("%d",_enemy->getCollider()->_colliderPos.y);
     /*if (_runner->OnColliderCheck(*_enemy->getCollider())) {
         if (!_runner->_isHurt) {
@@ -243,8 +242,8 @@ void Scene101::update(float dt)
 
 bool Scene101::onTouchBegan(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)//觸碰開始事件
 {
-    Point touchLoc = pTouch->getLocation();
-    if (cuber_rect.containsPoint(touchLoc)) {
+    //Point touchLoc = pTouch->getLocation();
+    /*if (cuber_rect.containsPoint(touchLoc)) {
 
     }
     if (replay_rect.containsPoint(touchLoc)) {
@@ -253,19 +252,15 @@ bool Scene101::onTouchBegan(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)//觸
     if (return_rect.containsPoint(touchLoc)) {
         unscheduleAllCallbacks();
         Director::getInstance()->end();
-    }
-    if (_runner->getCollider()->_range.containsPoint(touchLoc)) {
+    }*/
+    /*if (_runner->getCollider()->_range.containsPoint(touchLoc)) {
         _bBean01 = true;
         pt_old = touchLoc;
-        _runner->setState(_runner->State::happy);
-        _runner->changeFace();
+        _runner->changeFace(_runner->State::happy);
     }
     if (_c3sButton->touchesBegin(_c3sButton->BtnType::jumpBtn, touchLoc)) {
         _runner->_isJump = true;
-    }
-    if (_enemy->getCollider()->_range.containsPoint(touchLoc)) {
-        log("touch");
-    }
+    }*/
 
   return true;
 }
@@ -273,27 +268,26 @@ bool Scene101::onTouchBegan(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)//觸
 
 void Scene101::onTouchMoved(cocos2d::Touch* pTouch, cocos2d::Event* pEvent) //觸碰移動事件
 {
-    Point touchLoc = pTouch->getLocation();
-    pt_cur = touchLoc;
-    if (_bBean01) {
+    //Point touchLoc = pTouch->getLocation();
+    //pt_cur = touchLoc;
+    /*if (_bBean01) {
         Point t = pt_cur - pt_old;
         Point pos = this->_runner->getPosition()+t;
         _runner->setPosition(pos);
         pt_old = pt_cur;
     }
-    _c3sButton->touchesMove(_c3sButton->BtnType::jumpBtn,touchLoc);
+    _c3sButton->touchesMove(_c3sButton->BtnType::jumpBtn,touchLoc);*/
 }
 
 void  Scene101::onTouchEnded(cocos2d::Touch* pTouch, cocos2d::Event* pEvent) //觸碰結束事件 
 {
-    Point touchLoc = pTouch->getLocation();
-    if (_runner->getCollider()->_range.containsPoint(touchLoc)) {
+    //Point touchLoc = pTouch->getLocation();
+    /*if (_runner->getCollider()->_range.containsPoint(touchLoc)) {
         _bBean01 = false;
-        _runner->setState(_runner->State::normal);
-        _runner->changeFace();
+        _runner->changeFace(_runner->State::normal);
     }
     if (_c3sButton->touchesEnd(_c3sButton->BtnType::jumpBtn, touchLoc)) {
         
-    };
+    };*/
     
 }

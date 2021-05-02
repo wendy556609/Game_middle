@@ -1,100 +1,93 @@
 #include "C3SButton.h"
 
-CButton::CButton() {
-	_normalPic = nullptr;
-	_touchedPic = nullptr;
-}
-void CButton::init(const cocos2d::Point position, cocos2d::Node& parent, const std::string& normalName, const std::string& touchedName, int zOrder) {
-	_normalPic = Sprite::createWithSpriteFrameName(normalName+".png");
-	_touchedPic = Sprite::createWithSpriteFrameName(touchedName+".png");
-	_BtnLoc = position;
-	_normalPic->setPosition(_BtnLoc);
-	_touchedPic->setPosition(_BtnLoc);
-	_touchedPic->setVisible(false);
-
-	parent.addChild(_normalPic, zOrder);
-	parent.addChild(_touchedPic, zOrder);
-
-	_BtnSize = _normalPic->getContentSize();
-	_BtnRect = Rect(_BtnLoc.x - _BtnSize.width / 2, _BtnLoc.y - _BtnSize.height / 2, _BtnSize.width, _BtnSize.height);
-
-	_bTouched = false;
-	_bEnabled=_bVisible = true;
-}
-
-void CButton::setEnable(bool enable) {
-	_bEnabled = enable;
-}
-
-bool CJumpButton::touchesBegin(cocos2d::Point inPos) {
-	if (_BtnRect.containsPoint(inPos)&& _bEnabled) {
-		_bTouched = true;
-		_touchedPic->setVisible(true);
-		_normalPic->setVisible(false);
-		return true;
-	}
-	return false;
-
-}
-
-bool CJumpButton::touchesMove(cocos2d::Point inPos) {
-	if (_bTouched) {
-		if (!_BtnRect.containsPoint(inPos)) {
-			_bTouched = false;
-			_touchedPic->setVisible(false);
-			_normalPic->setVisible(true);
-			return false;
-		}
-		return true;
-	}
-	return false;
-}
-
-bool CJumpButton::touchesEnd(cocos2d::Point inPos) {
-	if (_BtnRect.containsPoint(inPos) && _bEnabled) {
-		_bTouched = false;
-		return true;
-	}
-	return false;
-}
-void CJumpButton::setSprite(bool enable) {
-	if (!_bTouched) {
-		setEnable(enable);
-		if (_bEnabled) {
-			_normalPic->setVisible(true);
-			_touchedPic->setVisible(false);
-		}
-		else {
-			_touchedPic->setVisible(true);
-			_normalPic->setVisible(false);
-		};
-	}
-}
-
 C3SButton::C3SButton() {
 	_jumpButton = nullptr;
+	_startButton = nullptr;
+	_restartButton = nullptr;
+	_runButton = nullptr;
 }
 C3SButton::~C3SButton() {
 	CC_SAFE_DELETE(_jumpButton);
+	CC_SAFE_DELETE(_startButton);
+	CC_SAFE_DELETE(_restartButton);
+	CC_SAFE_DELETE(_runButton);
 }
 void C3SButton::init(const BtnType type,const cocos2d::Point position, cocos2d::Node& parent, const std::string& normalName, const std::string& touchedName, int zOrder) {
 	if (type == BtnType::jumpBtn) {
 		_jumpButton = new (std::nothrow)CJumpButton();
 		_jumpButton->init(position, parent, normalName, touchedName);
 	}
+	else if (type == BtnType::startBtn) {
+		_startButton = new (std::nothrow)CStartButton();
+		_startButton->init(position, parent, normalName, touchedName);
+	}
+	else if (type == BtnType::restartBtn) {
+		_restartButton = new (std::nothrow)CRestartButton();
+		_restartButton->init(position, parent, normalName, touchedName);
+	}
+	else if (type == BtnType::runBtn) {
+		_runButton = new (std::nothrow)CRunButton();
+		_runButton->init(position, parent, normalName, touchedName);
+	}
 }
-bool C3SButton::touchesBegin(const BtnType type, cocos2d::Point inPos) {
-	if (type == BtnType::jumpBtn)return _jumpButton->touchesBegin(inPos);
+bool C3SButton::touchesBegin(cocos2d::Point inPos, BtnType type) {
+	if (type == BtnType::all) {
+		_jumpButton->touchesBegin(inPos);
+		_startButton->touchesBegin(inPos);
+		_restartButton->touchesBegin(inPos);
+		_runButton->touchesBegin(inPos);
+	}
+	else if (type == BtnType::jumpBtn)return _jumpButton->touchesBegin(inPos);
+	else if (type == BtnType::startBtn)return _startButton->touchesBegin(inPos);
+	else if (type == BtnType::restartBtn)return _restartButton->touchesBegin(inPos);
+	else if (type == BtnType::runBtn)return _runButton->touchesBegin(inPos);
 	else return false;
 }
-bool C3SButton::touchesMove(const BtnType type, cocos2d::Point inPos) {
-	if (type == BtnType::jumpBtn)return _jumpButton->touchesMove(inPos);
+bool C3SButton::touchesMove(cocos2d::Point inPos, BtnType type) {
+	if (type == BtnType::all) {
+		_jumpButton->touchesMove(inPos);
+		_startButton->touchesMove(inPos);
+		_restartButton->touchesMove(inPos);
+		_runButton->touchesMove(inPos);
+	}
+	else if (type == BtnType::jumpBtn)return _jumpButton->touchesMove(inPos);
+	else if (type == BtnType::startBtn)return _startButton->touchesMove(inPos);
+	else if (type == BtnType::restartBtn)return _restartButton->touchesMove(inPos);
+	else if (type == BtnType::runBtn)return _runButton->touchesMove(inPos);
 	else return false;
 }
-bool C3SButton::touchesEnd(const BtnType type, cocos2d::Point inPos) {
-	if (type == BtnType::jumpBtn)return _jumpButton->touchesEnd(inPos);
+bool C3SButton::touchesEnd(cocos2d::Point inPos, BtnType type) {
+	if (type == BtnType::all) {
+		_jumpButton->touchesEnd(inPos);
+		_startButton->touchesEnd(inPos);
+		_restartButton->touchesEnd(inPos);
+		_runButton->touchesEnd(inPos);
+	}
+	else if (type == BtnType::jumpBtn)return _jumpButton->touchesEnd(inPos);
+	else if (type == BtnType::startBtn)return _startButton->touchesEnd(inPos);
+	else if (type == BtnType::restartBtn)return _restartButton->touchesEnd(inPos);
+	else if (type == BtnType::runBtn)return _runButton->touchesEnd(inPos);
 	else return false;
 }
-void C3SButton::setEnable(const BtnType type, bool enable) {
-	if (type == BtnType::jumpBtn)_jumpButton->setSprite(enable);
+void C3SButton::setEnable(bool enable, const BtnType type) {
+	if (type == BtnType::all) {
+		_jumpButton->setEnable(enable);
+		_restartButton->setEnable(enable);
+		_runButton->setEnable(enable);
+	}
+	else if (type == BtnType::jumpBtn)_jumpButton->setSprite(enable);
+	else if (type == BtnType::startBtn)_startButton->setEnable(enable);
+	else if (type == BtnType::restartBtn)_restartButton->setEnable(enable);
+	else if (type == BtnType::runBtn)_runButton->setEnable(enable);
+}
+
+void C3SButton::setVisible(bool visible) {
+	_startButton->setVisible(visible);
+}
+
+void C3SButton::initState() {
+	setEnable(false);
+	_jumpButton->initState();
+	_startButton->setVisible(true);
+	setEnable(true, startBtn);
 }

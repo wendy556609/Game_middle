@@ -11,7 +11,7 @@ CRoad::CRoad() {
 	_roadobj[0] = _roadobj[1] = _roadobj[2] = nullptr;
 	_iroadon[0] = _iroadon[1] = _iroadon[2] = 1;
 
-	movespeed = 150;
+	movespeed = 1;
 }
 
 CRoad::~CRoad() {
@@ -21,7 +21,8 @@ CRoad::~CRoad() {
 void CRoad::init(const cocos2d::Point position, cocos2d::Node& parent, const std::string& imgname) {
 	std::string objname;
 	_road = Sprite::createWithSpriteFrameName(imgname + ".png");
-	_road->setPosition(position);
+	_initPos = position;
+	_road->setPosition(_initPos);
 	parent.addChild(_road, 1); // °ª©ó­I´º¼h
 
 	_roadobj[0] = CSLoader::createNode("./patterns/midobj.csb");
@@ -97,5 +98,10 @@ void CRoad::resetObj() {
 }
 
 void CRoad::setSpeed(float speed) {
-	movespeed = 150 * speed;
+	movespeed = speed;
+}
+
+void CRoad::initState() {
+	resetObj();
+	_road->setPosition(_initPos);
 }

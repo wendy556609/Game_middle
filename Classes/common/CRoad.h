@@ -10,6 +10,8 @@ private:
 	cocos2d::Sprite* _road;  // 兩段道路, 圖片來源都是 road00.png
 	cocos2d::Node* _roadobj[3]; // 兩段道路上的三個裝飾物件
 	int _iroadon[3]; // 紀錄目前每一個生成點,顯示的是哪一個物件
+	cocos2d::Point _initPos;
+
 public:
 	CRoad();
 	~CRoad();
@@ -18,6 +20,7 @@ public:
 	void init(const cocos2d::Point position, cocos2d::Node& parent, const std::string& imgname);
 	void resetObj();
 	void setSpeed(float speed);
+	void initState();
 
 	float movespeed;
 };

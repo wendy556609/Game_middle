@@ -25,7 +25,8 @@
 #include <cstdlib>
 #include <ctime>
 #include "AppDelegate.h"
-#include "scene101/scene101.h"
+//#include "scene101/scene101.h"
+#include "patterns/gamescene.h"
 
 #define USE_AUDIO_ENGINE 1
 // #define USE_SIMPLE_AUDIO_ENGINE 1
@@ -129,7 +130,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // create a scene. it's an autorelease object
 //  auto scene = HelloWorld::createScene(); // 場景建立時，不使用轉場效果
 //  auto scene = TransitionMoveInL::create(0.6f, HelloWorld::createScene()); // 使用轉場效果
-  auto scene = Scene101::createScene();
+ // auto scene = Scene101::createScene();
+    auto scene = GameScene::createScene();
 
     director->runWithScene(scene); // 設定 director 從這個 scene 開始執行
 

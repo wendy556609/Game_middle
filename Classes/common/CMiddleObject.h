@@ -15,6 +15,7 @@ public:
 
 	void init(const cocos2d::Point position, cocos2d::Node& parent, const std::string& imgname);
 	void setSpeed(float speed);
+	void initState();
 
 	float movespeed;
 };

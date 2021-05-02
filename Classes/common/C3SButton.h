@@ -3,55 +3,36 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "cocostudio/CocoStudio.h"
+#include "common/CButton.h"
 
 USING_NS_CC;
 
-class CButton {
-private:
-	
-public:
-	CButton();
-	virtual void init(const cocos2d::Point position, cocos2d::Node& parent, const std::string& normalName, const std::string& touchedName, int zOrder = 11);
-	virtual bool touchesBegin(cocos2d::Point inPos )= 0;
-	virtual bool touchesMove(cocos2d::Point inPos) = 0;
-	virtual bool touchesEnd(cocos2d::Point inPos) = 0;
-	void setEnable(bool enable);
-
-	bool _bTouched; // 是否被按下
-	bool _bEnabled; // 是否有作用
-	bool _bVisible; // 是否顯示
-protected:
-	cocos2d::Sprite* _normalPic;
-	cocos2d::Sprite* _touchedPic;
-
-	cocos2d::Size  _BtnSize;
-	cocos2d::Point _BtnLoc;
-	cocos2d::Rect  _BtnRect;
-};
-class CJumpButton :public CButton {
-private:
-public:
-	bool touchesBegin(cocos2d::Point inPos);
-	bool touchesMove(cocos2d::Point inPos);
-	bool touchesEnd(cocos2d::Point inPos);
-	void setSprite(bool enable);
-};
 
 class C3SButton {
 private:
+	C3SButton* buttons;
 public:
 	enum BtnType {
+		all,
+		startBtn,
 		jumpBtn,
-		returnBtn,
+		restartBtn,
+		runBtn
 	};
 
 	C3SButton();
 	~C3SButton();
 
+	CStartButton* _startButton;
 	CJumpButton* _jumpButton;
+	CRestartButton* _restartButton;
+	CRunButton* _runButton;
+	
 	void init(const BtnType type, const cocos2d::Point position, cocos2d::Node& parent, const std::string& normalName, const std::string& touchedName, int zOrder = 11);
-	bool touchesBegin(const BtnType type,cocos2d::Point inPos);
-	bool touchesMove(const BtnType type,cocos2d::Point inPos);
-	bool touchesEnd(const BtnType type,cocos2d::Point inPos);
-	void setEnable(const BtnType type, bool enable);
+	bool touchesBegin(cocos2d::Point inPos,BtnType type= BtnType::all);
+	bool touchesMove(cocos2d::Point inPos, BtnType type = BtnType::all);
+	bool touchesEnd(cocos2d::Point inPos, BtnType type = BtnType::all);
+	void setEnable(bool enable, BtnType type = BtnType::all);
+	void setVisible(bool visible);
+	void initState();
 };

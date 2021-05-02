@@ -16,6 +16,9 @@
     <Filter Include="src\common">
       <UniqueIdentifier>{8b165b26-0969-4d0a-b50a-4b4f649f58fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\patterns">
+      <UniqueIdentifier>{1725c83e-fe03-45f9-acf7-a40ee7575206}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -45,6 +48,18 @@
     <ClCompile Include="..\Classes\common\CEnemyObj.cpp">
       <Filter>src\common</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\common\CEnemy.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\patterns\gamescene.cpp">
+      <Filter>src\patterns</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\CScoring.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\CButton.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -72,6 +87,18 @@
       <Filter>src\common</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\common\CEnemyObj.h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\CEnemy.h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\patterns\gamescene.h">
+      <Filter>src\patterns</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\CScoring.h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\CButton.h">
       <Filter>src\common</Filter>
     </ClInclude>
   </ItemGroup>
