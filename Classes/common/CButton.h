@@ -66,3 +66,13 @@ public:
 	bool touchesMove(cocos2d::Point inPos);
 	bool touchesEnd(cocos2d::Point inPos);
 };
+
+class CBoardButton :public CButton {
+private:
+	bool isOpen = false;
+public:
+	bool touchesBegin(cocos2d::Point inPos);
+	bool touchesMove(cocos2d::Point inPos);
+	bool touchesEnd(cocos2d::Point inPos);
+	void initState();
+};

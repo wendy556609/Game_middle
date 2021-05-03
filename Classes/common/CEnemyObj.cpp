@@ -5,6 +5,7 @@ CTriEnemy::CTriEnemy() {
 	_showAction = nullptr;
 	blood = 1;
 	isEnable = false;
+	enemyScore = 1;
 }
 CTriEnemy::~CTriEnemy() {
 
@@ -78,6 +79,7 @@ CFEnemy::CFEnemy() {
 	_showAction = nullptr;
 	_startAnim = false;
 	blood = 2;
+	enemyScore = 2;
 }
 
 CFEnemy::~CFEnemy() {
@@ -140,6 +142,7 @@ CBEnemy::CBEnemy() {
 	_jumptime = 0;
 	_waitTime = 0;
 	blood = 3;
+	enemyScore = 3;
 }
 
 CBEnemy::~CBEnemy() {
@@ -193,9 +196,9 @@ void CBEnemy::Jump(float dt, Point move) {
 	if (_isJump) {
 		if (!_hightPoint) {
 			_jumptime += dt;
-			float ph = sinf(_jumptime * M_PI / 1.0f);
+			float ph = sinf(_jumptime * M_PI / 1.5f);
 			pos = Vec2(move.x, _initPos.y + ph * 300);
-			if (_jumptime >= 0.5f&& !drop) {
+			if (_jumptime >= 0.75f&& !drop) {
 				pos = Vec2(move.x, _initPos.y + 300);
 				_hightPoint = true;
 			}
@@ -204,16 +207,16 @@ void CBEnemy::Jump(float dt, Point move) {
 		else {
 			_waitTime += dt;
 			pos = Vec2(move.x, _initPos.y + 300);
-			if (_waitTime > 0.5f) {
+			if (_waitTime > 1.0f) {
 				_waitTime = 0;
 				_hightPoint = false;
 				drop = true;
-				_showAction->gotoFrameAndPlay(18, 30, false);
+				_showAction->gotoFrameAndPlay(54, 66, false);
 				_showAction->setTimeSpeed(1.0f);
 			}
 			setPosition(pos);
 		}
-		if (_jumptime > 1.0f) {
+		if (_jumptime > 1.5f) {
 			_jumptime = 0;
 			pos = Vec2(move.x, _initPos.y);
 			setPosition(pos);
@@ -224,14 +227,17 @@ void CBEnemy::Jump(float dt, Point move) {
 		}
 	}
 	else {
+		if (_waitTime == 0) {
+			_showAction->gotoFrameAndPlay(0, 30, true);
+			_showAction->setTimeSpeed(1.0f);
+		}
 		_waitTime += dt;
 		pos = Vec2(move.x, _initPos.y);
-		_showAction->gotoFrameAndPause(0);
-		if (_waitTime > 0.5f) {
+		if (_waitTime > 2.0f) {
 			_waitTime = 0;
 			_isJump = true;
 			drop = false;
-			_showAction->gotoFrameAndPlay(0, 18, false);
+			_showAction->gotoFrameAndPlay(36, 54, false);
 			_showAction->setTimeSpeed(1.0f);
 		}
 		setPosition(pos);

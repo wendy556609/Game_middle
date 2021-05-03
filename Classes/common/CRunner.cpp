@@ -169,7 +169,7 @@ void CRunner::hurtAct(float dt) {
 	else if (passing) {
 		if (isChange) {
 			if (_faceTime == 0) {
-				CScoring::getInstance()->setScore(1);
+				CScoring::getInstance()->setScore(CScoring::getInstance()->currentScore);
 				CScoring::getInstance()->setMoveSpeed(3.0f);
 				CScoring::getInstance()->setChange(true);
 			}

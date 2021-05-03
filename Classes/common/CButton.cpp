@@ -152,9 +152,7 @@ bool CRestartButton::touchesEnd(cocos2d::Point inPos) {
 
 bool CRunButton::touchesBegin(cocos2d::Point inPos) {
 	if (_BtnRect.containsPoint(inPos) && _bEnabled) {
-		if (!CScoring::getInstance()->getChange()) {
-			CScoring::getInstance()->setMoveSpeed(3.5f);
-		}
+		CScoring::getInstance()->setMoveSpeed(3.5f);
 		_bTouched = true;
 		_touchedPic->setVisible(true);
 		_normalPic->setVisible(false);
@@ -186,4 +184,53 @@ bool CRunButton::touchesEnd(cocos2d::Point inPos) {
 		return true;
 	}
 	return false;
+}
+
+bool CBoardButton::touchesBegin(cocos2d::Point inPos) {
+	if (_BtnRect.containsPoint(inPos) && _bEnabled) {
+		_bTouched = true;
+		_touchedPic->setVisible(true);
+		_normalPic->setVisible(false);
+		if (!isOpen) {
+			CScoring::getInstance()->setBoardVisible(true);
+			isOpen = true;
+		}
+		else {
+			CScoring::getInstance()->setBoardVisible(false);
+			isOpen = false;
+		}
+		return true;
+	}
+	return false;
+
+}
+
+bool CBoardButton::touchesMove(cocos2d::Point inPos) {
+	if (_bTouched) {
+		if (!_BtnRect.containsPoint(inPos)) {
+			_bTouched = false;
+			_touchedPic->setVisible(false);
+			_normalPic->setVisible(true);
+			return false;
+		}
+		return true;
+	}
+	return false;
+}
+
+bool CBoardButton::touchesEnd(cocos2d::Point inPos) {
+	if (_BtnRect.containsPoint(inPos) && _bEnabled) {
+		_bTouched = false;
+		_touchedPic->setVisible(false);
+		_normalPic->setVisible(true);
+		return true;
+	}
+	return false;
+}
+
+void CBoardButton::initState() {
+	if (!_bEnabled) {
+		CScoring::getInstance()->setBoardVisible(false);
+		isOpen = false;
+	}
 }

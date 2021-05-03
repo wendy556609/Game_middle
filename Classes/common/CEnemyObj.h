@@ -25,6 +25,7 @@ public:
 	float _posY;
 	float _moveSpeed;
 	int blood;
+	int enemyScore;
 	bool _startAnim;
 	bool isEnable;
 };

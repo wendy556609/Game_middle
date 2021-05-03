@@ -17,7 +17,8 @@ public:
 		startBtn,
 		jumpBtn,
 		restartBtn,
-		runBtn
+		runBtn,
+		boardBtn
 	};
 
 	C3SButton();
@@ -27,6 +28,7 @@ public:
 	CJumpButton* _jumpButton;
 	CRestartButton* _restartButton;
 	CRunButton* _runButton;
+	CBoardButton* _boardButton;
 	
 	void init(const BtnType type, const cocos2d::Point position, cocos2d::Node& parent, const std::string& normalName, const std::string& touchedName, int zOrder = 11);
 	bool touchesBegin(cocos2d::Point inPos,BtnType type= BtnType::all);

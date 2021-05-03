@@ -60,6 +60,9 @@
     <ClCompile Include="..\Classes\common\CButton.cpp">
       <Filter>src\common</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\common\CCanvas.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -99,6 +102,9 @@
       <Filter>src\common</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\common\CButton.h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\CCanvas.h">
       <Filter>src\common</Filter>
     </ClInclude>
   </ItemGroup>

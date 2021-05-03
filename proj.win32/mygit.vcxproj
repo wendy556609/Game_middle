@@ -153,6 +153,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\common\C3SButton.cpp" />
     <ClCompile Include="..\Classes\common\CButton.cpp" />
+    <ClCompile Include="..\Classes\common\CCanvas.cpp" />
     <ClCompile Include="..\Classes\common\CEnemy.cpp" />
     <ClCompile Include="..\Classes\common\CEnemyObj.cpp" />
     <ClCompile Include="..\Classes\common\CGameObject.cpp" />
@@ -168,6 +169,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\common\C3SButton.h" />
     <ClInclude Include="..\Classes\common\CButton.h" />
+    <ClInclude Include="..\Classes\common\CCanvas.h" />
     <ClInclude Include="..\Classes\common\CEnemy.h" />
     <ClInclude Include="..\Classes\common\CEnemyObj.h" />
     <ClInclude Include="..\Classes\common\CGameObject.h" />

@@ -4,6 +4,7 @@
 #include "ui/CocosGUI.h"
 #include "cocostudio/CocoStudio.h"
 #include "CEnemyObj.h"
+#include "CScoring.h"
 
 USING_NS_CC;
 
@@ -25,6 +26,7 @@ public:
 	void setPosition(Point pos);
 	bool checkCollider(CGameObject& object);
 	int getHurt();
+	int getPassScore();
 
 	CCollider* getCollider();
 
@@ -56,6 +58,7 @@ public:
 	bool checkCollider(CGameObject& object);
 	int getHurt();
 	bool passPlayer(CGameObject& object);
+	int getPassScore();
 
 	int blood;
 };

@@ -7,6 +7,7 @@ GameScene::GameScene() {
     _midObj = nullptr;
     _runner = nullptr;
     _enemy = nullptr;
+    _Bar = nullptr;
 }
 
 GameScene::~GameScene() {
@@ -14,10 +15,10 @@ GameScene::~GameScene() {
     CC_SAFE_DELETE(_midObj);
     CC_SAFE_DELETE(_runner);
     CC_SAFE_DELETE(_enemy);
+    CC_SAFE_DELETE(_Bar);
     this->removeAllChildren();
-    SpriteFrameCache::getInstance()->removeSpriteFramesFromFile("scene101.plist");
-    SpriteFrameCache::getInstance()->removeSpriteFramesFromFile("scene101bg.plist");
     SpriteFrameCache::getInstance()->removeSpriteFramesFromFile("gamescene.plist");
+    SpriteFrameCache::getInstance()->removeSpriteFramesFromFile("scene101/gamescene_object.plist");
     Director::getInstance()->getTextureCache()->removeUnusedTextures();
 }
 
@@ -41,9 +42,8 @@ bool GameScene::init() {
     auto rootNode = CSLoader::createNode("mainscene.csb");
     this->addChild(rootNode); // 加入目前的 scene 中
 
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("scene101/scene101.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("scene101/scene101bg.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("scene101/gamescene.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("scene101/gamescene_object.plist");
 
     auto loctag = dynamic_cast<cocos2d::Node*>(rootNode->getChildByName("_runner"));
     loctag->setVisible(false);
@@ -68,6 +68,8 @@ bool GameScene::init() {
     position = loctag->getPosition();
     _c3sButton->init(_c3sButton->BtnType::startBtn, position, *this, "startnormal", "starton");
 
+    CScoring::create()->init(1, position, *this);
+
     loctag = dynamic_cast<cocos2d::Sprite*>(rootNode->getChildByName("replaybtn"));
     loctag->setVisible(false);
     position = loctag->getPosition();
@@ -78,6 +80,11 @@ bool GameScene::init() {
     position = loctag->getPosition();
     _c3sButton->init(_c3sButton->BtnType::runBtn, position, *this, "runnormal", "runon");
 
+    loctag = dynamic_cast<cocos2d::Sprite*>(rootNode->getChildByName("btn_cuber"));
+    loctag->setVisible(false);
+    position = loctag->getPosition();
+    _c3sButton->init(_c3sButton->BtnType::boardBtn, position, *this, "cuberbtn1", "cuberbtn2");
+
     _enemy = new (std::nothrow)CEnemy();
     _enemy->init(*this, _runner->getPosition());
 
@@ -85,7 +92,26 @@ bool GameScene::init() {
     loctag->setVisible(false);
     position = loctag->getPosition();
 
-    CScoring::create(position, dynamic_cast<cocos2d::Sprite*>(rootNode->getChildByName("startButton"))->getPosition(), *this, loctag->getContentSize())->setScore(0);
+    CScoring::getInstance()->init(0, position, *this);
+
+    loctag = dynamic_cast<cocos2d::Node*>(rootNode->getChildByName("LevelText"));
+    loctag->setVisible(false);
+    position = loctag->getPosition();
+
+    CScoring::getInstance()->init(2, position, *this);
+
+    loctag = dynamic_cast<cocos2d::Node*>(rootNode->getChildByName("bloodBar_track"));
+    loctag->setVisible(false);
+    position = loctag->getPosition();
+
+    _Bar = new (std::nothrow)CCanvas();
+    _Bar->init(1, position, *this);
+
+    loctag = dynamic_cast<cocos2d::Node*>(rootNode->getChildByName("gameSlider_track"));
+    loctag->setVisible(false);
+    position = loctag->getPosition();
+
+    _Bar->init(2, position, *this);
 
     _midObj->setSpeed(2);
 
@@ -104,50 +130,61 @@ bool GameScene::init() {
 
 void GameScene::update(float dt) {
     if (CScoring::getInstance()->getStart()) {
-        if (CScoring::getInstance()->_isInit) {
-            CScoring::getInstance()->_isInit = false;
-            _c3sButton->setEnable(true);
-        }
-        _midObj->update(dt);
-        _runner->update(dt);
-        _c3sButton->setEnable(!_runner->_isJump, _c3sButton->BtnType::jumpBtn);
-        _enemy->update(dt);
-        if (_runner->_isJump) {
-            //CScoring::getInstance()->setMoveSpeed(2.25f);
-
-            if (!_runner->passing) {
-                _runner->passing = _enemy->passPlayer(*_runner);
+        if (!CScoring::getInstance()->_isFinal) {
+            if (CScoring::getInstance()->_isInit) {
+                CScoring::getInstance()->_isInit = false;
+                _c3sButton->setEnable(true);
+                _c3sButton->setEnable(false, _c3sButton->BtnType::boardBtn);
             }
-        }
-        else {
-            //CScoring::getInstance()->setMoveSpeed(2);
-        }
+            _midObj->update(dt);
+            _runner->update(dt);
+            _c3sButton->setEnable(!_runner->_isJump, _c3sButton->BtnType::jumpBtn);
 
-        _enemy->setSpeed(CScoring::getInstance()->getMoveSpeed());
-        _midObj->setSpeed(CScoring::getInstance()->getMoveSpeed());
+            _enemy->update(dt);
 
-        if (_enemy->checkCollider(*_runner)) {
-            if (!_runner->_isHurt) {
-                _runner->_faceTime = 0;
-                _runner->getHurt(_enemy->getHurt());
-                _runner->_isHurt = true;
+            if (_runner->_isJump) {
+                //CScoring::getInstance()->setMoveSpeed(2.25f);
+
+                if (!_runner->passing) {
+                    _runner->passing = _enemy->passPlayer(*_runner);
+                    CScoring::getInstance()->currentScore = _enemy->getPassScore();
+                }
             }
-        }
-        else {
+            else {
+                //CScoring::getInstance()->setMoveSpeed(2);
+            }
+
+            _enemy->setSpeed(CScoring::getInstance()->getMoveSpeed());
+            _midObj->setSpeed(CScoring::getInstance()->getMoveSpeed());
+
+            if (_enemy->checkCollider(*_runner)) {
+                if (!_runner->_isHurt) {
+                    _runner->_faceTime = 0;
+                    _runner->getHurt(_enemy->getHurt());
+                    _runner->_isHurt = true;
+                    _Bar->setBlood(_runner->_blood);
+                }
+            }
+            else {
+            }
+
+            _Bar->update();
         }
     }
     else {
-        CScoring::getInstance()->update(dt);
         if (!CScoring::getInstance()->_isInit) {
-            log("init");
+            CScoring::getInstance()->initState();
             _runner->initState();
             _enemy->initState();
             _midObj->initState();
             _c3sButton->initState();
-            CScoring::getInstance()->initState();
+            _c3sButton->setEnable(true, _c3sButton->BtnType::boardBtn);
+            _Bar->initState();
             CScoring::getInstance()->_isInit = true;
         }
     }
+
+    CScoring::getInstance()->update(dt);
 }
 
 bool GameScene::onTouchBegan(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)//觸碰開始事件

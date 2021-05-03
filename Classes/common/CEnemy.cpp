@@ -60,8 +60,9 @@ void CEnemyNode::resetEnemyState(int type) {
 }
 
 void CEnemyNode::resetEnemy() {
-	int enemyType = rand() % 3;
-	resetEnemyState(0);
+	int level = CScoring::getInstance()->getLevel();
+	int enemyType = rand() % level;
+	resetEnemyState(enemyType);
 	int range = 100 - (rand() % 200);
 	_rebornPoint.x = _initPoint.x + range;
 	isStart = false;
@@ -117,7 +118,9 @@ CCollider* CEnemyNode::getCollider() {
 int CEnemyNode::getHurt() {
 	return _enemy[enemyOn]->blood;
 }
-
+int CEnemyNode::getPassScore() {
+	return _enemy[enemyOn]->enemyScore;
+}
 
 CEnemy::CEnemy() {
 	_enemyNode[0] = _enemyNode[1] = _enemyNode[2] = nullptr;
@@ -188,6 +191,19 @@ bool CEnemy::passPlayer(CGameObject& object) {
 		return true;
 	}
 	return false;
+}
+
+int CEnemy::getPassScore() {
+	if (_enemyNode[0]->isPass) {
+		return _enemyNode[0]->getPassScore();
+	}
+	else if (_enemyNode[1]->isPass) {
+		return _enemyNode[1]->getPassScore();
+	}
+	else if (_enemyNode[2]->isPass) {
+		return _enemyNode[2]->getPassScore();
+	}
+	else return 0;
 }
 
 void CEnemy::initState() {

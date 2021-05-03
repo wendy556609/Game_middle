@@ -7,6 +7,7 @@
 #include "common/CMiddleObject.h"
 #include "common/CEnemy.h"
 #include "common/CScoring.h"
+#include "common/CCanvas.h"
 
 class GameScene :public cocos2d::Scene {
 private:
@@ -22,6 +23,7 @@ public:
 	CMiddleObject* _midObj;
 	C3SButton* _c3sButton;
 	CEnemy* _enemy;
+	CCanvas* _Bar;
 
 	void update(float dt);
 

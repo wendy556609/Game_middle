@@ -4,15 +4,37 @@
 #include "ui/CocosGUI.h"
 #include "cocostudio/CocoStudio.h"
 
+class CScoreBoard {
+private:
+	cocos2d::Sprite* _board;
+	cocos2d::Label* _medals[3];
+	int _bestScore[3];
+	
+public:
+	CScoreBoard();
+	~CScoreBoard();
+
+	void init(cocos2d::Node& parent, int zOrder);
+	void setVisible(bool visible);
+	void checkBestScore(int score);
+	void setString();
+};
+
 class CScoring {
 private:
 	int _score;
 
 	std::string _scoreText;
+	std::string _levelText;
 	std::string _scoreString;
 	std::string _timeString;
+	std::string _levelString;
+	std::string _endString;
+	
 	cocos2d::Label* _scoreLabel;
 	cocos2d::Label* _timeLabel;
+	cocos2d::Label* _levelLabel;
+	cocos2d::Label* _endLabel;
 
 	bool isChange;
 	bool _isGameStart;
@@ -20,26 +42,43 @@ private:
 
 	float _countTime;
 	float _moveSpeed;
+
+	int _level;
+
+	float _finalTime;
+	float _currentTime;
+
+	CScoreBoard* _scoreBoard;
 public:
 	CScoring();
 	~CScoring();
 
-	static CScoring* create(cocos2d::Point scorePos, cocos2d::Point timePos, cocos2d::Node& parent, cocos2d::Size size, int zOrder = 11);
+	static CScoring* create();
 	static CScoring* getInstance();
 
-	void init(cocos2d::Point scorePos, cocos2d::Point timePos, cocos2d::Node& parent, cocos2d::Size size, int zOrder);
+	void init(int type, cocos2d::Point pos, cocos2d::Node& parent, int zOrder = 11);
 	void initState();
 	void update(float dt);
-	int getScore(int score);
+
 	void setScore(int score);
 	void setChange(bool change);
-	bool getChange();
 	void setMoveSpeed(float speed);
-	float getMoveSpeed();
 	void setStart(bool start,int type=0);
+	void setLevel();
+	void setTime(float time);
+	void setBoardVisible(bool visible);
+	void setGameOver(float time);
+
+	int getScore();
+	bool getChange();
+	float getMoveSpeed();
 	bool getStart();
+	int getLevel();
+	float getTime();
 
 	bool _isInit;
-	
-	int _level;
+	bool _isFinal;
+	bool _isGameOver;
+
+	int currentScore;
 };
