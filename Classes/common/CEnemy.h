@@ -18,27 +18,30 @@ public:
 
 	void init(cocos2d::Node& parent, cocos2d::Point start);
 	void initState();
+
 	void resetEnemyState(int type);
 	void resetEnemy();
+
 	void update(float dt);
 	void pointUpdate(float dt);
+
 	void setSpeed(float speed);
-	void setPosition(Point pos);
+
 	bool checkCollider(CGameObject& object);
 	int getHurt();
 	int getPassScore();
-
 	CCollider* getCollider();
 
 	cocos2d::Point _startPoint;
 	cocos2d::Point _initPoint;
 	cocos2d::Point _rebornPoint;
-	//cocos2d::Node* _enemyNode;
 	cocos2d::Point _enemyNode;
 
 	int enemyOn;
+
 	float _moveSpeed;
 	float waitTime;
+
 	bool isStart;
 	bool isPass;
 };
@@ -53,8 +56,10 @@ public:
 
 	void init(cocos2d::Node& parent, cocos2d::Point playerPoint);
 	void initState();
+
 	void update(float dt);
 	void setSpeed(float speed);
+
 	bool checkCollider(CGameObject& object);
 	int getHurt();
 	bool passPlayer(CGameObject& object);

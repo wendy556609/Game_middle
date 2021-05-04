@@ -3,6 +3,10 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "cocostudio/CocoStudio.h"
+#include "CAudio.h"
+
+#define FINALTIME 60
+#define TOTBLOOD 10
 
 class CScoreBoard {
 private:
@@ -23,6 +27,7 @@ public:
 class CScoring {
 private:
 	int _score;
+	int _level;
 
 	std::string _scoreText;
 	std::string _levelText;
@@ -42,13 +47,11 @@ private:
 
 	float _countTime;
 	float _moveSpeed;
-
-	int _level;
-
 	float _finalTime;
 	float _currentTime;
 
 	CScoreBoard* _scoreBoard;
+	CAudio* _audio;
 public:
 	CScoring();
 	~CScoring();
@@ -68,6 +71,8 @@ public:
 	void setTime(float time);
 	void setBoardVisible(bool visible);
 	void setGameOver(float time);
+	/*0_jump 1_score 2_arrival*/
+	void setPlay(int type, bool play);
 
 	int getScore();
 	bool getChange();

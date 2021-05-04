@@ -4,19 +4,22 @@ USING_NS_CC;
 
 CRunner::CRunner()
 {
-	_blood = 10;
-	_isJump = false;
+	_blood = TOTBLOOD;
+	
 	_shadow = nullptr;
 	_runAction = nullptr;
+
+	_isJump = false;
 	_hightPoint = false;
-	_jumptime = 0;
 	_isHurt = false;
-	_airTime = 0;
 	drop = false;
 	isChange = false;
 	passing = false;
-	_faceTime = 0;
 	_isStart = false;
+
+	_airTime = 0;
+	_faceTime = 0;
+	_jumptime = 0;
 }
 
 CRunner::~CRunner()
@@ -25,7 +28,7 @@ CRunner::~CRunner()
 }
 
 void CRunner::initState() {
-	_blood = 10;
+	_blood = TOTBLOOD;
 
 	setPosition(_initPos);
 
@@ -149,20 +152,23 @@ void CRunner::hurtAct(float dt) {
 			CScoring::getInstance()->setMoveSpeed(1.5f);
 			CScoring::getInstance()->setChange(true);
 		}
-		isChange = true;
 		_faceTime += dt;
+
 		changeFace(State::sad);
 		_objectNode->setColor(Color3B(82, 131, 151));
 		_runAction->setTimeSpeed(0.75f);
+
+		isChange = true;
 		passing = false;
 		if (_faceTime >= 1.5f) {
 			_faceTime = 0;
 			isChange = false;
 			_isHurt = false;
+			CScoring::getInstance()->setChange(false);
+
 			changeFace(State::normal);
 			_objectNode->setColor(Color3B(255, 255, 255));
 			CScoring::getInstance()->setMoveSpeed(2.0f);
-			CScoring::getInstance()->setChange(false);
 			_runAction->setTimeSpeed(1.0f);
 		}
 	}
@@ -174,6 +180,7 @@ void CRunner::hurtAct(float dt) {
 				CScoring::getInstance()->setChange(true);
 			}
 			_faceTime += dt;
+
 			changeFace(State::happy);
 			_objectNode->setColor(Color3B(247, 151, 149));
 			_runAction->setTimeSpeed(1.25f);
@@ -181,17 +188,17 @@ void CRunner::hurtAct(float dt) {
 				_faceTime = 0;
 				isChange = false;
 				passing = false;
+				CScoring::getInstance()->setChange(false);
+
 				changeFace(State::normal);
 				_objectNode->setColor(Color3B(255, 255, 255));
 				CScoring::getInstance()->setMoveSpeed(2.0f);
 				_runAction->setTimeSpeed(1.0f);
-				CScoring::getInstance()->setChange(false);
 			}
 		}
 	}
 	else {
 		isChange = false;
-		//CScoring::getInstance()->setMoveSpeed(2.0f);
 	}
 }
 
@@ -200,5 +207,4 @@ void CRunner::getHurt(int blood) {
 	if (_blood <= 0) {
 		_blood = 0;
 	}
-	CCLOG("%d", _blood);
 }

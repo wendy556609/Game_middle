@@ -43,6 +43,9 @@ class CCanvas{
 private:
 	CBar* _bloodBar;
 	CTimeBar* _timeBar;
+
+	std::string _bloodString;
+	cocos2d::Label* _bloodLabel;
 public:
 	CCanvas();
 	~CCanvas();

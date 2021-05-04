@@ -63,6 +63,9 @@
     <ClCompile Include="..\Classes\common\CCanvas.cpp">
       <Filter>src\common</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\common\CAudio.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -105,6 +108,9 @@
       <Filter>src\common</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\common\CCanvas.h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\CAudio.h">
       <Filter>src\common</Filter>
     </ClInclude>
   </ItemGroup>

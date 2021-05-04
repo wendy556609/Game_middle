@@ -81,6 +81,7 @@ void CTimeBar::setTimeBar(int value) {
 CCanvas::CCanvas() {
 	_bloodBar = nullptr;
 	_timeBar = nullptr;
+	_bloodLabel = nullptr;
 }
 
 CCanvas::~CCanvas() {
@@ -91,21 +92,48 @@ CCanvas::~CCanvas() {
 void CCanvas::initState() {
 	_bloodBar->initState();
 	_timeBar->initTimeState();
+
+	std::ostringstream ostr;
+	ostr.str(""); // 設定字串為 null
+	ostr << TOTBLOOD;
+	_bloodString = ostr.str();
+
+	_bloodLabel->setString(_bloodString);
 }
 
 void CCanvas::init(int type, cocos2d::Point pos, cocos2d::Node& parent, int zOrder) {
 	if (type == 1) {
 		_bloodBar = new (std::nothrow)CBar();
-		_bloodBar->init(pos, parent, 10,Vec2(0.8,1), zOrder);
+		_bloodBar->init(pos, parent, TOTBLOOD,Vec2(0.8,1), zOrder);
+
+		std::ostringstream ostr;
+		ostr.str(""); // 設定字串為 null
+		ostr << TOTBLOOD;
+		_bloodString = ostr.str();
+		_bloodLabel = Label::createWithBMFont("fonts/couriernew32.fnt", _bloodString);
+
+		_bloodLabel->setBMFontSize(24);
+		_bloodLabel->setColor(Color3B::WHITE);
+		_bloodLabel->setPosition(Vec2((pos.x - _bloodBar->_barBase->getContentSize().width * 0.6f), pos.y));
+
+		parent.addChild(_bloodLabel, zOrder);
+		
 	}
 	else if(type == 2) {
 		_timeBar = new (std::nothrow)CTimeBar();
-		_timeBar->initAll(pos, parent, 60, Vec2(1.25, 1.25), zOrder);
+		_timeBar->initAll(pos, parent, FINALTIME, Vec2(1.25, 1.25), zOrder);
 	}
 }
 
 void CCanvas::setBlood(int blood) {
 	_bloodBar->setBar(blood);
+
+	std::ostringstream ostr;
+	ostr.str(""); // 設定字串為 null
+	ostr << _bloodBar->_currentValue;
+	_bloodString = ostr.str();
+
+	_bloodLabel->setString(_bloodString);
 
 	if (_bloodBar->_currentValue == 0) {
 		CScoring::getInstance()->_isFinal=true;

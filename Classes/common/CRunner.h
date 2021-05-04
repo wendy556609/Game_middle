@@ -51,14 +51,16 @@ public:
 	cocos2d::Vec2 _cPos;
 
 	int _blood;
+
 	bool _isJump;
 	bool _isStart;
 	bool _hightPoint;
+	bool _isHurt;
+
 	bool drop;
 	bool isChange;
 	bool passing;
-
-	bool _isHurt;
+	
 	float _jumptime;
 	float _airTime;
 	float _faceTime;

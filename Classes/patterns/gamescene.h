@@ -2,6 +2,7 @@
 
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
+
 #include "./common/C3SButton.h"
 #include "common/CRunner.h"
 #include "common/CMiddleObject.h"
@@ -11,7 +12,6 @@
 
 class GameScene :public cocos2d::Scene {
 private:
-	bool _bToGameScene;
 public:
 	GameScene();
 	~GameScene();

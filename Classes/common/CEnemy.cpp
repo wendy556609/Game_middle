@@ -2,10 +2,12 @@
 
 CEnemyNode::CEnemyNode() {
 	_enemy[0] = _enemy[1] = _enemy[2] = nullptr;
+
 	_initPoint = Vec2(-1080, 124);
 	enemyOn = 0;
 	_moveSpeed = 1;
 	waitTime = 0;
+
 	isStart = true;
 	isPass = false;
 }
@@ -65,6 +67,7 @@ void CEnemyNode::resetEnemy() {
 	resetEnemyState(enemyType);
 	int range = 100 - (rand() % 200);
 	_rebornPoint.x = _initPoint.x + range;
+
 	isStart = false;
 	isPass = false;
 }
@@ -96,10 +99,6 @@ void CEnemyNode::pointUpdate(float dt) {
 
 void CEnemyNode::setSpeed(float speed) {
 	_moveSpeed = speed;
-}
-
-void CEnemyNode::setPosition(Point pos) {
-	//_enemyNode->setPosition(pos);
 }
 
 bool CEnemyNode::checkCollider(CGameObject& object) {

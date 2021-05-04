@@ -102,12 +102,18 @@ static CScoring* s_CScoring = nullptr;
 
 CScoring::CScoring() {
     _score = 0;
+    _level = 1;
+    _moveSpeed = 150;
+    _countTime = 0;
+    _currentTime = 10;
+    _finalTime = FINALTIME;
+
     _scoreText = "Score : ";
     _levelText = "Level ";
+
     _scoreLabel = nullptr;
     _timeLabel = nullptr;
     _levelLabel = nullptr;
-    _scoreBoard = nullptr;
     _endLabel = nullptr;
 
     isChange = false;
@@ -116,15 +122,14 @@ CScoring::CScoring() {
     _isFinal = false;
     _isInit = false;
     _isGameOver = false;
-    _moveSpeed = 150;
-    _countTime = 0;
-    _finalTime = 60;
-    _currentTime = 10;
-    _level = 1;
+    
+    _audio = nullptr;
+    _scoreBoard = nullptr;
 }
 
 CScoring::~CScoring() {
     CC_SAFE_DELETE(_scoreBoard);
+    CC_SAFE_DELETE(_audio);
     CC_SAFE_DELETE(s_CScoring);
 }
 
@@ -160,6 +165,8 @@ void CScoring::init(int type, cocos2d::Point pos, cocos2d::Node& parent, int zOr
         _scoreBoard = new (std::nothrow)CScoreBoard();
         _scoreBoard->init(parent, zOrder + 1);
 
+        _audio = new (std::nothrow)CAudio();
+        _audio->init();
     }
     else if (type == 1) {
         ostr << _countTime;
@@ -197,6 +204,7 @@ void CScoring::init(int type, cocos2d::Point pos, cocos2d::Node& parent, int zOr
 
 void CScoring::initState() {
     currentScore = 0;
+
     _score = 0;
     _level = 1;
     _currentTime = _finalTime;
@@ -218,6 +226,10 @@ void CScoring::setScore(int score) {
     ostr << _scoreText << _score;
     _scoreString = ostr.str();
     _scoreLabel->setString(_scoreString);
+
+    if (score != 0) {
+        setPlay(1, true);
+    }
 
     setLevel();
     isChange = true;
@@ -278,8 +290,8 @@ void CScoring::update(float dt) {
         }
     }
     else if (_isGameStart) {
-        setTime(dt);
-        setGameOver(dt);
+        if (_isFinal) setGameOver(dt);
+        else setTime(dt);
     }
 }
 
@@ -304,6 +316,7 @@ void CScoring::setTime(float time) {
     _currentTime -= time;
     
     if (_currentTime <= 0) {
+        setPlay(2, true);
         _currentTime = _finalTime;
         _isFinal = true;
         _isGameOver = false;
@@ -311,46 +324,48 @@ void CScoring::setTime(float time) {
 }
 
 void CScoring::setGameOver(float time) {
-    if (_isFinal) {
-        if (_isGameOver) {
-            std::ostringstream ostr;
-            ostr.str(""); // 設定字串為 null
-            std::string text;
+    
+    if (_isGameOver) {
+        std::ostringstream ostr;
+        ostr.str(""); // 設定字串為 null
+        std::string text;
 
-            _countTime += time;
+        _countTime += time;
 
-            ostr << "Game Over";
-            text = ostr.str();
-            _endLabel->setString(text);
+        ostr << "Game Over";
+        text = ostr.str();
+        _endLabel->setString(text);
 
-            _endLabel->setVisible(true);
+        _endLabel->setVisible(true);
 
-            if (_countTime >= 3) {
-                _isFinal = false;
-                _countTime = 0;
-                _endLabel->setVisible(false);
-                _isGameStart = false;
-            }
+        if (_countTime >= 3) {
+            _countTime = 0;
+            _endLabel->setVisible(false);
+
+            _isFinal = false;
+            _isGameStart = false;
         }
-        else {
-            std::ostringstream ostr;
-            ostr.str(""); // 設定字串為 null
-            std::string text;
+    }
+    else {
+        std::ostringstream ostr;
+        ostr.str(""); // 設定字串為 null
+        std::string text;
 
-            _countTime += time;
+        _countTime += time;
 
-            ostr << "Time's Up";
-            text = ostr.str();
-            _endLabel->setString(text);
+        ostr << "Time's Up";
+        text = ostr.str();
+        _endLabel->setString(text);
 
-            _endLabel->setVisible(true);
-            if (_countTime >= 3) {
-                _isFinal = false;
-                _countTime = 0;
-                _endLabel->setVisible(false);
-                _scoreBoard->checkBestScore(_score);
-                _isGameStart = false;
-            }
+        _endLabel->setVisible(true);
+        if (_countTime >= 3) {
+            _countTime = 0;
+            _endLabel->setVisible(false);
+            _scoreBoard->checkBestScore(_score);
+
+            _isFinal = false;
+            _isGameStart = false;
+            
         }
     }
 }
@@ -361,4 +376,8 @@ float CScoring::getTime() {
 
 void CScoring::setBoardVisible(bool visible) {
     _scoreBoard->setVisible(visible);
+}
+
+void CScoring::setPlay(int type, bool play) {
+    _audio->setPlay(type, play);
 }

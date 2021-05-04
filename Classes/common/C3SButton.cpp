@@ -102,8 +102,9 @@ void C3SButton::setVisible(bool visible) {
 }
 
 void C3SButton::initState() {
-	setEnable(false);
 	_jumpButton->initState();
 	_startButton->setVisible(true);
+
+	setEnable(false);
 	setEnable(true, startBtn);
 }

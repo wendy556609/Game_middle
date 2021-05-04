@@ -2,6 +2,8 @@
 
 USING_NS_CC;
 
+
+
 GameScene::GameScene() {
     _c3sButton = nullptr;
     _midObj = nullptr;
@@ -20,6 +22,10 @@ GameScene::~GameScene() {
     SpriteFrameCache::getInstance()->removeSpriteFramesFromFile("gamescene.plist");
     SpriteFrameCache::getInstance()->removeSpriteFramesFromFile("scene101/gamescene_object.plist");
     Director::getInstance()->getTextureCache()->removeUnusedTextures();
+
+    SimpleAudioEngine::sharedEngine()->end();
+
+    AudioEngine::end();
 }
 
 Scene* GameScene::createScene()
@@ -113,9 +119,6 @@ bool GameScene::init() {
 
     _Bar->init(2, position, *this);
 
-    _midObj->setSpeed(2);
-
-
     //創建一個一對一的事件聆聽器
     auto listener = EventListenerTouchOneByOne::create();
     listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
@@ -136,22 +139,18 @@ void GameScene::update(float dt) {
                 _c3sButton->setEnable(true);
                 _c3sButton->setEnable(false, _c3sButton->BtnType::boardBtn);
             }
+
             _midObj->update(dt);
             _runner->update(dt);
-            _c3sButton->setEnable(!_runner->_isJump, _c3sButton->BtnType::jumpBtn);
-
             _enemy->update(dt);
 
-            if (_runner->_isJump) {
-                //CScoring::getInstance()->setMoveSpeed(2.25f);
+            _c3sButton->setEnable(!_runner->_isJump, _c3sButton->BtnType::jumpBtn);
 
+            if (_runner->_isJump) {
                 if (!_runner->passing) {
                     _runner->passing = _enemy->passPlayer(*_runner);
                     CScoring::getInstance()->currentScore = _enemy->getPassScore();
                 }
-            }
-            else {
-                //CScoring::getInstance()->setMoveSpeed(2);
             }
 
             _enemy->setSpeed(CScoring::getInstance()->getMoveSpeed());
@@ -165,8 +164,6 @@ void GameScene::update(float dt) {
                     _Bar->setBlood(_runner->_blood);
                 }
             }
-            else {
-            }
 
             _Bar->update();
         }
@@ -178,8 +175,9 @@ void GameScene::update(float dt) {
             _enemy->initState();
             _midObj->initState();
             _c3sButton->initState();
-            _c3sButton->setEnable(true, _c3sButton->BtnType::boardBtn);
             _Bar->initState();
+
+            _c3sButton->setEnable(true, _c3sButton->BtnType::boardBtn);
             CScoring::getInstance()->_isInit = true;
         }
     }
@@ -190,22 +188,26 @@ void GameScene::update(float dt) {
 bool GameScene::onTouchBegan(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)//觸碰開始事件
 {
     Point touchLoc = pTouch->getLocation();
+
     if (_c3sButton->touchesBegin(touchLoc, _c3sButton->BtnType::jumpBtn)) {
         _runner->_isJump = true;
+        CScoring::getInstance()->setPlay(0, true);
     }
-
     _c3sButton->touchesBegin(touchLoc);
+
     return true;
 }
 
 void GameScene::onTouchMoved(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)//觸碰開始事件
 {
     Point touchLoc = pTouch->getLocation();
+
     _c3sButton->touchesMove(touchLoc);
 }
 
 void GameScene::onTouchEnded(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)//觸碰開始事件
 {
     Point touchLoc = pTouch->getLocation();
+
     _c3sButton->touchesEnd(touchLoc);
 }

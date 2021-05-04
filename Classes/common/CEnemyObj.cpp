@@ -2,9 +2,11 @@
 
 CTriEnemy::CTriEnemy() {
 	_startAnim = false;
-	_showAction = nullptr;
-	blood = 1;
 	isEnable = false;
+
+	_showAction = nullptr;
+
+	blood = 1;
 	enemyScore = 1;
 }
 CTriEnemy::~CTriEnemy() {
