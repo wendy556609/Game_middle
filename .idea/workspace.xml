@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="433d64a8-ec5f-4ec6-a05b-142c6eb325b1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/AppDelegate.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/AppDelegate.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/common/C3SButton.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/common/C3SButton.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/common/C3SButton.h" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/common/C3SButton.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/common/CAudio.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/common/CAudio.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/common/CAudio.h" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/common/CAudio.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/common/CButton.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/common/CButton.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/common/CCanvas.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/common/CCanvas.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/common/CCanvas.h" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/common/CCanvas.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/common/CEnemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/common/CEnemy.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/common/CEnemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/common/CEnemy.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/common/CEnemyObj.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/common/CEnemyObj.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/common/CGameObject.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/common/CGameObject.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/common/CGameObject.h" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/common/CGameObject.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/common/CMiddleObject.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/common/CMiddleObject.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/common/CMiddleObject.h" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/common/CMiddleObject.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/common/CRoad.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/common/CRoad.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/common/CRunner.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/common/CRunner.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/common/CScoring.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/common/CScoring.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/common/CScoring.h" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/common/CScoring.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/patterns/CGameManager.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/patterns/CGameManager.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/patterns/gamescene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/patterns/gamescene.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/patterns/gamescene.h" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/patterns/gamescene.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/patterns/startscene.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/patterns/startscene.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/scene101/scene101.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/scene101/scene101.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/scene101/scene102.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/scene101/scene102.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/bean_jump.csb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/fire.csb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/gamescene.csb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/gamescene.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/gamescene.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/gamescene_object.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/gamescene_object.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/mainscene.csb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/midobj.csb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/patterns/boyrunning.csb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/patterns/gamescene.csb" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/patterns/gamescene.csb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/patterns/gamescene.plist" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/patterns/gamescene.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/patterns/gamescene.png" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/patterns/gamescene.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/patterns/midobj.csb" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/patterns/midobj.csb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/patterns/runner_demo.csb" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/patterns/runner_demo.csb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/patterns/scene101.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/patterns/scene101.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/patterns/scene101bg.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/patterns/scene101bg.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/patterns/scene_patterns.csb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/patterns/startscene.csb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/patterns/startscene.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/patterns/startscene.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/patterns/triangle_node.csb" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/patterns/triangle_node.csb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/runner_demo.csb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/triangle_node.csb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proj.win32/Debug.win32/Resources/patterns/gamescene.csb" beforeDir="false" afterPath="$PROJECT_DIR$/proj.win32/Debug.win32/Resources/patterns/gamescene.csb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proj.win32/Debug.win32/Resources/patterns/gamescene.plist" beforeDir="false" afterPath="$PROJECT_DIR$/proj.win32/Debug.win32/Resources/patterns/gamescene.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proj.win32/Debug.win32/Resources/patterns/gamescene.png" beforeDir="false" afterPath="$PROJECT_DIR$/proj.win32/Debug.win32/Resources/patterns/gamescene.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proj.win32/Debug.win32/Resources/patterns/midobj.csb" beforeDir="false" afterPath="$PROJECT_DIR$/proj.win32/Debug.win32/Resources/patterns/midobj.csb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proj.win32/Debug.win32/Resources/patterns/runner_demo.csb" beforeDir="false" afterPath="$PROJECT_DIR$/proj.win32/Debug.win32/Resources/patterns/runner_demo.csb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proj.win32/Debug.win32/Resources/patterns/triangle_node.csb" beforeDir="false" afterPath="$PROJECT_DIR$/proj.win32/Debug.win32/Resources/patterns/triangle_node.csb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proj.win32/Debug.win32/mygit.exe" beforeDir="false" afterPath="$PROJECT_DIR$/proj.win32/Debug.win32/mygit.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proj.win32/Debug.win32/mygit.tlog/CL.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/proj.win32/Debug.win32/mygit.tlog/CL.command.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proj.win32/Debug.win32/mygit.tlog/CL.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/proj.win32/Debug.win32/mygit.tlog/CL.read.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proj.win32/Debug.win32/mygit.tlog/CL.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/proj.win32/Debug.win32/mygit.tlog/CL.write.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proj.win32/Debug.win32/mygit.tlog/link.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/proj.win32/Debug.win32/mygit.tlog/link.command.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proj.win32/Debug.win32/mygit.tlog/link.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/proj.win32/Debug.win32/mygit.tlog/link.read.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proj.win32/Debug.win32/mygit.tlog/link.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/proj.win32/Debug.win32/mygit.tlog/link.write.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proj.win32/Debug.win32/mygit.tlog/mygit.write.1u.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/proj.win32/Debug.win32/mygit.tlog/mygit.write.1u.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proj.win32/Debug.win32/vc142.idb" beforeDir="false" afterPath="$PROJECT_DIR$/proj.win32/Debug.win32/vc142.idb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proj.win32/mygit.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/proj.win32/mygit.vcxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proj.win32/mygit.vcxproj.filters" beforeDir="false" afterPath="$PROJECT_DIR$/proj.win32/mygit.vcxproj.filters" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1s4ECOqqsSyccA1qJhBBDXnJdzw" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/proj.android" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="433d64a8-ec5f-4ec6-a05b-142c6eb325b1" name="Default Changelist" comment="" />
+      <created>1620123332351</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1620123332351</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="0" y="550" key="FileChooserDialogImpl" timestamp="1620123362506">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="0" y="550" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1620123362506" />
+  </component>
+</project>

@@ -1,4 +1,4 @@
-#include "CAudio.h"
+﻿#include "CAudio.h"
 
 #define JumpAudio "./scene101/music/thinking cloud.wav"
 #define BgAudio "./scene101/music/sr_bg.mp3"
@@ -19,27 +19,27 @@ CAudio::~CAudio() {
 void CAudio::init() {
 	_ibgMusic = AudioEngine::play2d(BgAudio, true, 0.75f);
 
-	_ijumpMusic = SimpleAudioEngine::sharedEngine()->playEffect(JumpAudio, false);
-	SimpleAudioEngine::sharedEngine()->pauseEffect(_ijumpMusic);
+	_ijumpMusic = SimpleAudioEngine::getInstance()->playEffect(JumpAudio, false);
+	SimpleAudioEngine::getInstance()->pauseEffect(_ijumpMusic);
 
-	_iscoreMusic = SimpleAudioEngine::sharedEngine()->playEffect(ScoreAudio, false);
-	SimpleAudioEngine::sharedEngine()->pauseEffect(_iscoreMusic);
+	_iscoreMusic = SimpleAudioEngine::getInstance()->playEffect(ScoreAudio, false);
+	SimpleAudioEngine::getInstance()->pauseEffect(_iscoreMusic);
 
-	_iarrivalMusic = SimpleAudioEngine::sharedEngine()->playEffect(ArrivalAudio, false);
-	SimpleAudioEngine::sharedEngine()->pauseEffect(_iarrivalMusic);
+	_iarrivalMusic = SimpleAudioEngine::getInstance()->playEffect(ArrivalAudio, false);
+	SimpleAudioEngine::getInstance()->pauseEffect(_iarrivalMusic);
 }
 
 void CAudio::setPlay(int type, bool play) {
 	if (type == 0) {
-		if (play)SimpleAudioEngine::sharedEngine()->rewindEffect(_ijumpMusic, false);
-		else SimpleAudioEngine::sharedEngine()->pauseEffect(_ijumpMusic);
+		if (play)SimpleAudioEngine::getInstance()->rewindEffect(_ijumpMusic, false);
+		else SimpleAudioEngine::getInstance()->pauseEffect(_ijumpMusic);
 	}
 	else if (type == 1) {
-		if (play)SimpleAudioEngine::sharedEngine()->rewindEffect(_iscoreMusic, false);
-		else SimpleAudioEngine::sharedEngine()->pauseEffect(_iscoreMusic);
+		if (play)SimpleAudioEngine::getInstance()->rewindEffect(_iscoreMusic, false);
+		else SimpleAudioEngine::getInstance()->pauseEffect(_iscoreMusic);
 	}
 	else if (type == 2) {
-		if (play)SimpleAudioEngine::sharedEngine()->rewindEffect(_iarrivalMusic, false);
-		else SimpleAudioEngine::sharedEngine()->pauseEffect(_iarrivalMusic);
+		if (play)SimpleAudioEngine::getInstance()->rewindEffect(_iarrivalMusic, false);
+		else SimpleAudioEngine::getInstance()->pauseEffect(_iarrivalMusic);
 	}
 }

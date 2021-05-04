@@ -1,8 +1,6 @@
-#include "GameScene.h"
+ï»¿#include "GameScene.h"
 
 USING_NS_CC;
-
-
 
 GameScene::GameScene() {
     _c3sButton = nullptr;
@@ -19,11 +17,12 @@ GameScene::~GameScene() {
     CC_SAFE_DELETE(_enemy);
     CC_SAFE_DELETE(_Bar);
     this->removeAllChildren();
+
     SpriteFrameCache::getInstance()->removeSpriteFramesFromFile("gamescene.plist");
-    SpriteFrameCache::getInstance()->removeSpriteFramesFromFile("scene101/gamescene_object.plist");
+    SpriteFrameCache::getInstance()->removeSpriteFramesFromFile("gamescene_object.plist");
     Director::getInstance()->getTextureCache()->removeUnusedTextures();
 
-    SimpleAudioEngine::sharedEngine()->end();
+    SimpleAudioEngine::getInstance()->end();
 
     AudioEngine::end();
 }
@@ -45,11 +44,16 @@ bool GameScene::init() {
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    auto rootNode = CSLoader::createNode("mainscene.csb");
-    this->addChild(rootNode); // ¥[¤J¥Ø«eªº scene ¤¤
+    // è¨­å®šæœå°‹è·¯å¾‘
+    std::vector<std::string> searchPath;
+    searchPath.push_back("./patterns/");
+    CCFileUtils::getInstance()->setSearchPaths(searchPath);
 
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("scene101/gamescene.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("scene101/gamescene_object.plist");
+    auto rootNode = CSLoader::createNode("mainscene.csb");
+    this->addChild(rootNode); // åŠ å…¥ç›®å‰çš„ scene ä¸­
+
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("gamescene.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("gamescene_object.plist");
 
     auto loctag = dynamic_cast<cocos2d::Node*>(rootNode->getChildByName("_runner"));
     loctag->setVisible(false);
@@ -119,13 +123,13 @@ bool GameScene::init() {
 
     _Bar->init(2, position, *this);
 
-    //³Ğ«Ø¤@­Ó¤@¹ï¤@ªº¨Æ¥ó²âÅ¥¾¹
+    //å‰µå»ºä¸€å€‹ä¸€å°ä¸€çš„äº‹ä»¶è†è½å™¨
     auto listener = EventListenerTouchOneByOne::create();
     listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
-    listener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMoved, this);//¥[¤JÄ²¸I²¾°Ê¨Æ¥ó
-    listener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);//¥[¤JÄ²¸IÂ÷¶}¨Æ¥ó
+    listener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMoved, this);//åŠ å…¥è§¸ç¢°ç§»å‹•äº‹ä»¶
+    listener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);//åŠ å…¥è§¸ç¢°é›¢é–‹äº‹ä»¶
 
-    this->_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);	//¥[¤J­è³Ğ«Øªº¨Æ¥ó²âÅ¥¾¹
+    this->_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);	//åŠ å…¥å‰›å‰µå»ºçš„äº‹ä»¶è†è½å™¨
     this->schedule(CC_SCHEDULE_SELECTOR(GameScene::update));
 
     return true;
@@ -185,7 +189,7 @@ void GameScene::update(float dt) {
     CScoring::getInstance()->update(dt);
 }
 
-bool GameScene::onTouchBegan(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)//Ä²¸I¶}©l¨Æ¥ó
+bool GameScene::onTouchBegan(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)//è§¸ç¢°é–‹å§‹äº‹ä»¶
 {
     Point touchLoc = pTouch->getLocation();
 
@@ -198,14 +202,14 @@ bool GameScene::onTouchBegan(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)//Ä²
     return true;
 }
 
-void GameScene::onTouchMoved(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)//Ä²¸I¶}©l¨Æ¥ó
+void GameScene::onTouchMoved(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)//è§¸ç¢°é–‹å§‹äº‹ä»¶
 {
     Point touchLoc = pTouch->getLocation();
 
     _c3sButton->touchesMove(touchLoc);
 }
 
-void GameScene::onTouchEnded(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)//Ä²¸I¶}©l¨Æ¥ó
+void GameScene::onTouchEnded(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)//è§¸ç¢°é–‹å§‹äº‹ä»¶
 {
     Point touchLoc = pTouch->getLocation();
 

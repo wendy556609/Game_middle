@@ -1,9 +1,9 @@
-#pragma once // ¤@­Ó«D¼Ğ·Ç¦ı¬O³Q¼sªx¤ä´©ªº«e¸m³B²z²Å¸¹¡AÅı¸ÓÀÉ®×¸ü¤J¨ì­ì©lÀÉ®É¡A¥u·|¦b¸Ó­ì©lÀÉ¤º³Q¥]§t¤@¦¸
+ï»¿#pragma once // ä¸€å€‹éæ¨™æº–ä½†æ˜¯è¢«å»£æ³›æ”¯æ´çš„å‰ç½®è™•ç†ç¬¦è™Ÿï¼Œè®“è©²æª”æ¡ˆè¼‰å…¥åˆ°åŸå§‹æª”æ™‚ï¼Œåªæœƒåœ¨è©²åŸå§‹æª”å…§è¢«åŒ…å«ä¸€æ¬¡
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "cocostudio/CocoStudio.h"
-#include "common/CRoad.h"
+#include "patterns/CRoad.h"
 
 class CMiddleObject {
 private:
@@ -11,7 +11,7 @@ private:
 public:
 	CMiddleObject();
 	~CMiddleObject();
-	void update(float dt);  // ®Ú¾Ú®É¶¡¦Û¤v²¾°Ê
+	void update(float dt);  // æ ¹æ“šæ™‚é–“è‡ªå·±ç§»å‹•
 
 	void init(const cocos2d::Point position, cocos2d::Node& parent, const std::string& imgname);
 	void setSpeed(float speed);

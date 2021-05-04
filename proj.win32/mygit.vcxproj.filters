@@ -10,9 +10,6 @@
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\scene101">
-      <UniqueIdentifier>{b899fe92-75e9-4213-82e1-86762c50ae35}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\common">
       <UniqueIdentifier>{8b165b26-0969-4d0a-b50a-4b4f649f58fc}</UniqueIdentifier>
     </Filter>
@@ -27,44 +24,41 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\scene101\scene101.cpp">
-      <Filter>src\scene101</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\common\CGameObject.cpp">
-      <Filter>src\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\common\CRunner.cpp">
-      <Filter>src\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\common\CMiddleObject.cpp">
-      <Filter>src\common</Filter>
+    <ClCompile Include="..\Classes\patterns\gamescene.cpp">
+      <Filter>src\patterns</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\common\C3SButton.cpp">
       <Filter>src\common</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\common\CRoad.cpp">
-      <Filter>src\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\common\CEnemyObj.cpp">
-      <Filter>src\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\common\CEnemy.cpp">
-      <Filter>src\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\patterns\gamescene.cpp">
-      <Filter>src\patterns</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\common\CScoring.cpp">
-      <Filter>src\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\common\CButton.cpp">
+    <ClCompile Include="..\Classes\common\CAudio.cpp">
       <Filter>src\common</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\common\CCanvas.cpp">
       <Filter>src\common</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\common\CAudio.cpp">
+    <ClCompile Include="..\Classes\common\CEnemy.cpp">
       <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\CGameObject.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\CMiddleObject.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\CScoring.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\patterns\CButton.cpp">
+      <Filter>src\patterns</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\patterns\CEnemyObj.cpp">
+      <Filter>src\patterns</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\patterns\CRoad.cpp">
+      <Filter>src\patterns</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\patterns\CRunner.cpp">
+      <Filter>src\patterns</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -74,44 +68,41 @@
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\scene101\scene101.h">
-      <Filter>src\scene101</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\common\CGameObject.h">
-      <Filter>src\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\common\CRunner.h">
-      <Filter>src\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\common\CMiddleObject.h">
-      <Filter>src\common</Filter>
+    <ClInclude Include="..\Classes\patterns\gamescene.h">
+      <Filter>src\patterns</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\common\C3SButton.h">
       <Filter>src\common</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\common\CRoad.h">
-      <Filter>src\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\common\CEnemyObj.h">
-      <Filter>src\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\common\CEnemy.h">
-      <Filter>src\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\patterns\gamescene.h">
-      <Filter>src\patterns</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\common\CScoring.h">
-      <Filter>src\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\common\CButton.h">
+    <ClInclude Include="..\Classes\common\CAudio.h">
       <Filter>src\common</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\common\CCanvas.h">
       <Filter>src\common</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\common\CAudio.h">
+    <ClInclude Include="..\Classes\common\CEnemy.h">
       <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\CGameObject.h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\CMiddleObject.h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\CScoring.h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\patterns\CButton.h">
+      <Filter>src\patterns</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\patterns\CEnemyObj.h">
+      <Filter>src\patterns</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\patterns\CRoad.h">
+      <Filter>src\patterns</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\patterns\CRunner.h">
+      <Filter>src\patterns</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

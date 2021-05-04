@@ -1,10 +1,10 @@
-#pragma once
+﻿#pragma once
 
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
 
 #include "./common/C3SButton.h"
-#include "common/CRunner.h"
+#include "patterns/CRunner.h"
 #include "common/CMiddleObject.h"
 #include "common/CEnemy.h"
 #include "common/CScoring.h"

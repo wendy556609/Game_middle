@@ -1,4 +1,4 @@
-#include"CCanvas.h"
+ï»¿#include"CCanvas.h"
 
 USING_NS_CC;
 
@@ -94,7 +94,7 @@ void CCanvas::initState() {
 	_timeBar->initTimeState();
 
 	std::ostringstream ostr;
-	ostr.str(""); // ³]©w¦r¦ê¬° null
+	ostr.str(""); // è¨­å®šå­—ä¸²ç‚º null
 	ostr << TOTBLOOD;
 	_bloodString = ostr.str();
 
@@ -107,7 +107,7 @@ void CCanvas::init(int type, cocos2d::Point pos, cocos2d::Node& parent, int zOrd
 		_bloodBar->init(pos, parent, TOTBLOOD,Vec2(0.8,1), zOrder);
 
 		std::ostringstream ostr;
-		ostr.str(""); // ³]©w¦r¦ê¬° null
+		ostr.str(""); // è¨­å®šå­—ä¸²ç‚º null
 		ostr << TOTBLOOD;
 		_bloodString = ostr.str();
 		_bloodLabel = Label::createWithBMFont("fonts/couriernew32.fnt", _bloodString);
@@ -129,7 +129,7 @@ void CCanvas::setBlood(int blood) {
 	_bloodBar->setBar(blood);
 
 	std::ostringstream ostr;
-	ostr.str(""); // ³]©w¦r¦ê¬° null
+	ostr.str(""); // è¨­å®šå­—ä¸²ç‚º null
 	ostr << _bloodBar->_currentValue;
 	_bloodString = ostr.str();
 

@@ -1,4 +1,4 @@
-#include "CMiddleObject.h"
+ï»¿#include "CMiddleObject.h"
 
 USING_NS_CC;
 
@@ -20,7 +20,7 @@ void CMiddleObject::init(const cocos2d::Point position, cocos2d::Node& parent, c
 	_road1->init(position - Point(1280, 0), parent, imgname);
 }
 
-void CMiddleObject::update(float dt)  // ®Ú¾Ú®É¶¡¦Û¤v²¾°Ê
+void CMiddleObject::update(float dt)  // æ ¹æ“šæ™‚é–“è‡ªå·±ç§»å‹•
 {
 	_road0->update(dt);
 	_road1->update(dt);

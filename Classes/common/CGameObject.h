@@ -1,4 +1,4 @@
-#pragma once // ¤@­Ó«D¼Ğ·Ç¦ı¬O³Q¼sªx¤ä´©ªº«e¸m³B²z²Å¸¹¡AÅı¸ÓÀÉ®×¸ü¤J¨ì­ì©lÀÉ®É¡A¥u·|¦b¸Ó­ì©lÀÉ¤º³Q¥]§t¤@¦¸
+ï»¿#pragma once // ä¸€å€‹éæ¨™æº–ä½†æ˜¯è¢«å»£æ³›æ”¯æ´çš„å‰ç½®è™•ç†ç¬¦è™Ÿï¼Œè®“è©²æª”æ¡ˆè¼‰å…¥åˆ°åŸå§‹æª”æ™‚ï¼Œåªæœƒåœ¨è©²åŸå§‹æª”å…§è¢«åŒ…å«ä¸€æ¬¡
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
@@ -25,8 +25,11 @@ public:
 	
 	virtual void init(const cocos2d::Point position, cocos2d::Node& parent, const std::string& csbname, const std::string& layername, int zOrder = 1);
 	virtual void init(const cocos2d::Point position, cocos2d::Node& parent, const std::string& imgname, int zOrder = 1);
+
 	virtual void update(float dt);
+
 	virtual void setPosition(const cocos2d::Point pos);
+
 	void initBoxCollider(const cocos2d::Point pos, const cocos2d::Size size);
 	void setBoxCollider(const cocos2d::Point pos, const cocos2d::Size size);
 	void setVisible(bool visible) {

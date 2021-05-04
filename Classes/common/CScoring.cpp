@@ -1,4 +1,4 @@
-#include "CScoring.h"
+ï»¿#include "CScoring.h"
 
 USING_NS_CC;
 
@@ -20,7 +20,7 @@ void CScoreBoard::init(cocos2d::Node& parent, int zOrder) {
     std::string text;
     std::ostringstream ostr;
 
-    ostr.str(""); // ³]©w¦r¦ê¬° null
+    ostr.str(""); // è¨­å®šå­—ä¸²ç‚º null
     ostr << "Score : " << _bestScore[0];
     text = ostr.str();
     _medals[0] = Label::createWithBMFont("fonts/couriernew32.fnt", text);
@@ -28,7 +28,7 @@ void CScoreBoard::init(cocos2d::Node& parent, int zOrder) {
     _medals[0]->setColor(Color3B::WHITE);
     _medals[0]->setPosition(Vec2(500,360));
 
-    ostr.str(""); // ³]©w¦r¦ê¬° null
+    ostr.str(""); // è¨­å®šå­—ä¸²ç‚º null
     ostr << "Score : " << _bestScore[1];
     text = ostr.str();
     _medals[1] = Label::createWithBMFont("fonts/couriernew32.fnt", text);
@@ -36,7 +36,7 @@ void CScoreBoard::init(cocos2d::Node& parent, int zOrder) {
     _medals[1]->setColor(Color3B::WHITE);
     _medals[1]->setPosition(Vec2(500, 220));
 
-    ostr.str(""); // ³]©w¦r¦ê¬° null
+    ostr.str(""); // è¨­å®šå­—ä¸²ç‚º null
     ostr << "Score : " << _bestScore[2];
     text = ostr.str();
     _medals[2] = Label::createWithBMFont("fonts/couriernew32.fnt", text);
@@ -82,17 +82,17 @@ void CScoreBoard::setString() {
     std::string text;
     std::ostringstream ostr;
 
-    ostr.str(""); // ³]©w¦r¦ê¬° null
+    ostr.str(""); // è¨­å®šå­—ä¸²ç‚º null
     ostr << "Score : " << _bestScore[0];
     text = ostr.str();
     _medals[0]->setString(text);
 
-    ostr.str(""); // ³]©w¦r¦ê¬° null
+    ostr.str(""); // è¨­å®šå­—ä¸²ç‚º null
     ostr << "Score : " << _bestScore[1];
     text = ostr.str();
     _medals[1]->setString(text);
 
-    ostr.str(""); // ³]©w¦r¦ê¬° null
+    ostr.str(""); // è¨­å®šå­—ä¸²ç‚º null
     ostr << "Score : " << _bestScore[2];
     text = ostr.str();
     _medals[2]->setString(text);
@@ -150,7 +150,7 @@ CScoring* CScoring::getInstance() {
 //0_score 1_time 2_level
 void CScoring::init(int type, cocos2d::Point pos, cocos2d::Node& parent, int zOrder) {
     std::ostringstream ostr;
-    ostr.str(""); // ³]©w¦r¦ê¬° null
+    ostr.str(""); // è¨­å®šå­—ä¸²ç‚º null
     if (type == 0) {
         ostr << _scoreText << _score;
         _scoreString = ostr.str();
@@ -179,7 +179,7 @@ void CScoring::init(int type, cocos2d::Point pos, cocos2d::Node& parent, int zOr
 
         parent.addChild(_timeLabel, zOrder);
 
-        ostr.str(""); // ³]©w¦r¦ê¬° null
+        ostr.str(""); // è¨­å®šå­—ä¸²ç‚º null
         ostr << "Time's up";
         _endString = ostr.str();
         _endLabel = Label::createWithBMFont("fonts/couriernew32.fnt", _endString);
@@ -222,7 +222,7 @@ void CScoring::setScore(int score) {
     _score += score;
 
     std::ostringstream ostr;
-    ostr.str(""); // ³]©w¦r¦ê¬° null
+    ostr.str(""); // è¨­å®šå­—ä¸²ç‚º null
     ostr << _scoreText << _score;
     _scoreString = ostr.str();
     _scoreLabel->setString(_scoreString);
@@ -270,7 +270,7 @@ void CScoring::update(float dt) {
         _countTime += dt;
 
         std::ostringstream ostr;
-        ostr.str(""); // ³]©w¦r¦ê¬° null
+        ostr.str(""); // è¨­å®šå­—ä¸²ç‚º null
         
         if (floorf(4 - _countTime) == 0) {
             ostr << "GO";
@@ -297,7 +297,7 @@ void CScoring::update(float dt) {
 
 void CScoring::setLevel() {
     std::ostringstream ostr;
-    ostr.str(""); // ³]©w¦r¦ê¬° null
+    ostr.str(""); // è¨­å®šå­—ä¸²ç‚º null
 
     if (_score >= 10) {
         _level = 3;
@@ -327,7 +327,7 @@ void CScoring::setGameOver(float time) {
     
     if (_isGameOver) {
         std::ostringstream ostr;
-        ostr.str(""); // ³]©w¦r¦ê¬° null
+        ostr.str(""); // è¨­å®šå­—ä¸²ç‚º null
         std::string text;
 
         _countTime += time;
@@ -348,7 +348,7 @@ void CScoring::setGameOver(float time) {
     }
     else {
         std::ostringstream ostr;
-        ostr.str(""); // ³]©w¦r¦ê¬° null
+        ostr.str(""); // è¨­å®šå­—ä¸²ç‚º null
         std::string text;
 
         _countTime += time;

@@ -1,4 +1,4 @@
-#include "CEnemy.h"
+﻿#include "CEnemy.h"
 
 CEnemyNode::CEnemyNode() {
 	_enemy[0] = _enemy[1] = _enemy[2] = nullptr;
