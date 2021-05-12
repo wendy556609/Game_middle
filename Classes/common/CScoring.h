@@ -58,6 +58,7 @@ public:
 
 	static CScoring* create();
 	static CScoring* getInstance();
+	static void Destroy();
 
 	void init(int type, cocos2d::Point pos, cocos2d::Node& parent, int zOrder = 11);
 	void initState();
@@ -84,6 +85,7 @@ public:
 	bool _isInit;
 	bool _isFinal;
 	bool _isGameOver;
+	bool _isRestart;
 
 	int currentScore;
 };

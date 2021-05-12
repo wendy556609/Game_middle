@@ -26,6 +26,7 @@
 #include <ctime>
 #include "AppDelegate.h"
 #include "patterns/gamescene.h"
+#include "common/CScoring.h"
 
 #define USE_AUDIO_ENGINE 1
 // #define USE_SIMPLE_AUDIO_ENGINE 1
@@ -63,6 +64,7 @@ AppDelegate::~AppDelegate()
 #elif USE_SIMPLE_AUDIO_ENGINE
     SimpleAudioEngine::end();
 #endif
+    CScoring::Destroy();
 }
 
 // if you want a different context, modify the value of glContextAttrs

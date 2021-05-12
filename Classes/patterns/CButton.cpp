@@ -147,6 +147,7 @@ bool CRestartButton::touchesEnd(cocos2d::Point inPos) {
 		_touchedPic->setVisible(false);
 		_normalPic->setVisible(true);
 		CScoring::getInstance()->setStart(false, 1);
+		CScoring::getInstance()->setStart(true, 2);
 		return true;
 	}
 	return false;

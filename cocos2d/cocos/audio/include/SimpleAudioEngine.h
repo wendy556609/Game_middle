@@ -233,7 +233,6 @@ public:
      */
     virtual void stopAllEffects();
 
-    virtual void rewindEffect(unsigned int nSoundId, bool bLoop);
     /**
      * Preload a compressed audio file.
      *

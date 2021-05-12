@@ -22,8 +22,6 @@ GameScene::~GameScene() {
     SpriteFrameCache::getInstance()->removeSpriteFramesFromFile("gamescene_object.plist");
     Director::getInstance()->getTextureCache()->removeUnusedTextures();
 
-    SimpleAudioEngine::getInstance()->end();
-
     AudioEngine::end();
 }
 
@@ -182,6 +180,16 @@ void GameScene::update(float dt) {
             _Bar->initState();
 
             _c3sButton->setEnable(true, _c3sButton->BtnType::boardBtn);
+
+            if (!CScoring::getInstance()->_isRestart) {
+                _c3sButton->setVisible(true);
+                _c3sButton->setEnable(true, _c3sButton->startBtn);
+            }
+            else {
+                CScoring::getInstance()->setStart(true, 1);
+                CScoring::getInstance()->setStart(false, 2);
+            }
+            
             CScoring::getInstance()->_isInit = true;
         }
     }

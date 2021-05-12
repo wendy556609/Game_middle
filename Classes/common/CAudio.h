@@ -4,8 +4,8 @@
 #include "ui/CocosGUI.h"
 #include "cocostudio/CocoStudio.h"
 
-#include "SimpleAudioEngine.h"
-using namespace CocosDenshion;
+//#include "SimpleAudioEngine.h"
+//using namespace CocosDenshion;
 
 #include "audio/include/AudioEngine.h"
 using namespace cocos2d::experimental;

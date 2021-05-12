@@ -209,15 +209,6 @@ void SimpleAudioEngine::pauseAllEffects()
     }
 }
 
-void SimpleAudioEngine::rewindEffect(unsigned int nSoundId,bool bLoop)
-{
-    EffectList::iterator p = sharedList().find(nSoundId);
-    if (p != sharedList().end())
-    {
-        p->second->Play((bLoop) ? -1 : 1);
-    }
-}
-
 void SimpleAudioEngine::resumeEffect(unsigned int nSoundId)
 {
     EffectList::iterator p = sharedList().find(nSoundId);

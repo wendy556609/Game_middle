@@ -1,9 +1,9 @@
 ﻿#include "CAudio.h"
 
-#define JumpAudio "./scene101/music/thinking cloud.wav"
+#define JumpAudio "./scene101/music/thinking cloud.mp3"
 #define BgAudio "./scene101/music/sr_bg.mp3"
-#define ArrivalAudio "./scene101/music/arrivalsfinalsound.wav"
-#define ScoreAudio "./scene101/music/gain point.wav"
+#define ArrivalAudio "./scene101/music/arrivalsfinalsound.mp3"
+#define ScoreAudio "./scene101/music/gain point.mp3"
 
 CAudio::CAudio() {
 	_ibgMusic = -1;
@@ -18,28 +18,19 @@ CAudio::~CAudio() {
 
 void CAudio::init() {
 	_ibgMusic = AudioEngine::play2d(BgAudio, true, 0.75f);
-
-	_ijumpMusic = SimpleAudioEngine::getInstance()->playEffect(JumpAudio, false);
-	SimpleAudioEngine::getInstance()->pauseEffect(_ijumpMusic);
-
-	_iscoreMusic = SimpleAudioEngine::getInstance()->playEffect(ScoreAudio, false);
-	SimpleAudioEngine::getInstance()->pauseEffect(_iscoreMusic);
-
-	_iarrivalMusic = SimpleAudioEngine::getInstance()->playEffect(ArrivalAudio, false);
-	SimpleAudioEngine::getInstance()->pauseEffect(_iarrivalMusic);
 }
 
 void CAudio::setPlay(int type, bool play) {
 	if (type == 0) {
-		if (play)SimpleAudioEngine::getInstance()->rewindEffect(_ijumpMusic, false);
-		else SimpleAudioEngine::getInstance()->pauseEffect(_ijumpMusic);
+		if (play)_ijumpMusic = AudioEngine::play2d(JumpAudio, false, 0.75f);
+		else AudioEngine::pause(_ijumpMusic);
 	}
 	else if (type == 1) {
-		if (play)SimpleAudioEngine::getInstance()->rewindEffect(_iscoreMusic, false);
-		else SimpleAudioEngine::getInstance()->pauseEffect(_iscoreMusic);
+		if (play)_iscoreMusic = AudioEngine::play2d(ScoreAudio, false, 0.75f);
+		else AudioEngine::pause(_iscoreMusic);
 	}
 	else if (type == 2) {
-		if (play)SimpleAudioEngine::getInstance()->rewindEffect(_iarrivalMusic, false);
-		else SimpleAudioEngine::getInstance()->pauseEffect(_iarrivalMusic);
+		if (play)_iarrivalMusic = AudioEngine::play2d(ArrivalAudio, false, 0.75f);
+		else AudioEngine::pause(_iarrivalMusic);
 	}
 }

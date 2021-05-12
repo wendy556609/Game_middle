@@ -122,6 +122,7 @@ CScoring::CScoring() {
     _isFinal = false;
     _isInit = false;
     _isGameOver = false;
+    _isRestart = false;
     
     _audio = nullptr;
     _scoreBoard = nullptr;
@@ -130,8 +131,11 @@ CScoring::CScoring() {
 CScoring::~CScoring() {
     CC_SAFE_DELETE(_scoreBoard);
     CC_SAFE_DELETE(_audio);
-    CC_SAFE_DELETE(s_CScoring);
 }
+
+void CScoring::Destroy() {
+    CC_SAFE_DELETE(s_CScoring);
+};
 
 CScoring* CScoring::create() {
     if (!s_CScoring) {
@@ -209,6 +213,7 @@ void CScoring::initState() {
     _level = 1;
     _currentTime = _finalTime;
     _isFinal = false;
+
     setScore(0);
     setMoveSpeed(2);
     setChange(false);
@@ -257,6 +262,9 @@ void CScoring::setStart(bool start, int type) {
     }
     else if(type == 1){
         _isGameStart = start;
+    }
+    else if (type == 2) {
+        _isRestart = start;
     }
 }
 bool CScoring::getStart() {
